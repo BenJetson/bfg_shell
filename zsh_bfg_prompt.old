@@ -1,0 +1,150 @@
+#!/bin/bash
+
+# # Load the ZSH version control info plugin.
+# autoload -Uz vcs_info
+
+# Enable prompt substitution.
+# setopt prompt_subst
+
+# # git right
+# RPROMPT='${vcs_info_msg_0_}'
+
+# Source Git Prompt defiinitions
+source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+# source /Users/bengodfrey/Downloads/newgitprompt.sh
+export GIT_PS1_SHOWUPSTREAM=
+export GIT_PS1_SHOWCOLORHINTS=
+export GIT_PS1_SHOWDIRTYSTATE=
+export GIT_PS1_SHOWSTASHSTATE=
+export GIT_PS1_SHOWUNTRACKEDFILES=
+export GIT_PS1_STATESEPARATOR=" "
+
+bfg_set_prompt() {
+    PROMPT_SEPARATOR=$'\ue0b0'
+    PROMPT_APPLE=$'\uf179'
+
+    PROMPT=""
+
+    # Apple Segment
+    PROMPT+=$'%F{black}%K{white} \uf179 %F{white}'
+
+    # Path Segment
+    PROMPT+=$'%K{blue}\ue0b0'
+    # PROMPT+=$' %d '
+    PROMPT+=$'%F{white} %~ '
+
+    # PROMPT+=$' %4(c.~/--/.)'
+    # PROMPT+=$'%3~ '
+
+    # check conditional logic, notably:
+    #True if the current path, with prefix replacement, has at least n elements relative to the root directory, hence / is counted as 0 elements.
+    #https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
+
+    # PROMPT+=$' %3~ '
+    # PROMPT+=$' %25<..<%~%<<%  '
+
+    PROMPT+=$'%F{blue}'
+
+    # Git segment
+    git_branch=$(git symbolic-ref HEAD --short 2>/dev/null)
+    if [[ -n "$git_branch" ]]; then
+        # git_status=""
+        # git_status=$(__git_ps1 "%s")
+        git_status="$(\
+            git status --branch --porcelain=v1 2>/dev/null | \
+            awk '{ print $1 }'\
+        )"
+        unset dirty deleted untracked newfile renamed
+
+
+        while read -r line; do
+            case "$line"  in
+            *M*)                            dirty='!' ; ;;
+            *D*)                            deleted='x' ; ;;
+            *\?\?*)                         untracked='?' ; ;;
+            *A*)                            newfile='+' ; ;;
+            *R*)                            renamed='>' ; ;;
+            # *'Your branch is ahead of '*)   ahead='*' ; ;;
+            esac
+        done <<< "$git_status"
+        bits="$dirty$deleted$untracked$newfile$renamed" # $ahead"
+
+        git_color=$'green'
+        if [ -n "$bits" ]; then
+            bits+=" "
+            git_color=$'yellow'
+        fi
+
+        # PROMPT+=$'%K'"$git_color"
+        PROMPT+=$'%K{'"$git_color"$'}'
+        PROMPT+=$'\ue0b0'
+        PROMPT+=$'%F{black} \ue0a0 '"$git_branch $bits"
+        PROMPT+=$'%F{'"$git_color"$'}%k\ue0b0'
+
+        # if [[ "$git_status" =~ [*!%] ]]; then
+        #     PROMPT+=$'%K{yellow}\ue0b0'
+        #     PROMPT+=$'%F{black} \ue0a0 '"$git_status "
+        #     PROMPT+=$'%F{yellow}%k\ue0b0'
+        # else
+        #     PROMPT+=$'%K{green}\ue0b0'
+        #     PROMPT+=$'%F{black} \ue0a0 '"$git_status "
+        #     PROMPT+=$'%F{green}%k\ue0b0'
+        # fi
+    else
+        PROMPT+=$'%k\ue0b0'
+    fi
+
+    # Reset colors after prompt
+    # PROMPT+=$'%K{black}%F{white}'
+    PROMPT+=$'%k%f'
+    PROMPT+=$' '
+}
+
+
+bfg_command_timer() {
+    bfg_command_start="$SECONDS"
+}
+
+bfg_set_rprompt() {
+    bfg_command_end="$SECONDS"
+    if [ -n "$bfg_command_start" ]; then
+        elapsed=$((bfg_command_end-bfg_command_start))
+    else
+        elapsed=0
+    fi
+    unset bfg_command_start
+
+    EXIT_CODE=$?
+    if [ $EXIT_CODE -eq 0 ]; then
+        RPROMPT=""
+        RPROMPT+=$'%k%F{green}\ue0b2'
+        RPROMPT+=$'%K{green}%F{white}'
+        RPROMPT+=$' \u2714 ' # check symbol
+        RPROMPT+=$'%K{green}'
+    else
+        RPROMPT=""
+        RPROMPT+=$'%k%F{red}\ue0b2'
+        RPROMPT+=$'%K{red}%F{yellow}'
+        RPROMPT+=" $EXIT_CODE "
+        RPROMPT+=$'\u2717 ' # x symbol
+        RPROMPT+=$'%K{red}'
+    fi
+
+    if [ "$elapsed" -gt 2 ]; then
+        RPROMPT+=$'%F{yellow}\ue0b2'
+        RPROMPT+=$'%K{yellow}%F{black}'
+        RPROMPT+=" $elapsed""s "
+        RPROMPT+=$'\uf252 ' # hourglass symbol
+        RPROMPT+=$'%K{yellow}'
+    fi
+
+    RPROMPT+=$'%F{white}\ue0b2'
+    RPROMPT+=$'%K{white}%F{black}'
+    RPROMPT+=$' %* \uf017 '
+
+    # RPROMPT+=$'%K{black}%F{white}'
+    RPROMPT+=$'%k%f'
+}
+
+precmd_functions+=( bfg_set_prompt bfg_set_rprompt )
+preexec_functions+=( bfg_command_timer )
