@@ -1,9 +1,8 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Don't know why Mac does not include these editor bindings by default.
 export EDITOR="vim"
-alias edit="\$EDITOR"
-alias sudoedit="sudo -e"
+
 
 # If this shell supports line editing, bind settings. (If interactive shell)
 if [[ "$(set -o | grep 'emacs\|\bvi\b' | cut -f2 | tr '\n' ':')" != 'off:off:' ]]
@@ -48,40 +47,7 @@ then
     zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 fi
 
-# Prompt before removing or overwriting files with common commands.
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
 
-# ls Aliases
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -l'
-alias lla='ls -la'
-
-# Git Aliases
-alias gs='git status'
-alias gc='git commit'
-alias gck='git checkout'
-alias gf='git fetch'
-alias gp='git pull'
-alias gps='git push'
-alias ga='git add'
-alias gaa='git add .'
-alias gb='git branch'
-alias gl='git log'
-alias glg='git log --graph --oneline --decorate --all'
-alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
-alias gbl='git blame'
-alias grm='git rm'
-alias grmf='git rm -f'
-alias gr='git reset'
-alias gst='git stash'
-alias gsta='git stash apply'
-alias gstd='git stash drop'
-alias gstl='git stash list'
-alias gstp='git stash pop'
-alias gsts='git stash save'
 
 # Go env vars
 export GOPATH="$HOME/go"
@@ -92,5 +58,4 @@ export PATH="$PATH:$GOPATH/bin"
 # Add Python3 packages to PATH
 export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.8/bin"
 
-# iCloud helper
-alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
+
