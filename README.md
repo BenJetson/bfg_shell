@@ -1,2 +1,5 @@
-# zsh_bfg
-My ZSH settings, prompt, and other customizations.
+# BFG Shell
+
+My shell settings, prompt, and other customizations.
+
+Supports `zsh` and `bash`.
