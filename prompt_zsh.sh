@@ -1,17 +1,7 @@
 #!/bin/bash
 
-# # Load the ZSH version control info plugin.
-# autoload -Uz vcs_info
-
-# Enable prompt substitution.
-# setopt prompt_subst
-
-# # git right
-# RPROMPT='${vcs_info_msg_0_}'
-
 # Source Git Prompt defiinitions
-source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
-# source /Users/bengodfrey/Downloads/newgitprompt.sh
+source "$BFG_SHELL_HOME/vendor/git-prompt.sh"
 export GIT_PS1_SHOWUPSTREAM="verbose"
 export GIT_PS1_SHOWCOLORHINTS=
 export GIT_PS1_SHOWDIRTYSTATE=1
@@ -60,64 +50,22 @@ bfg_set_prompt() {
     PROMPT+=$'%F{blue}'
 
     # Git segment
-    # git_branch=$(git symbolic-ref HEAD --short 2>/dev/null)
-    # if [[ -n "$git_branch" ]]; then
-    # git_status=""
     git_status=$(__git_ps1 "%s")
     if [[ -n "$git_status" ]]; then
-        # git_status="$(\
-        #     git status --branch --porcelain=v1 2>/dev/null | \
-        #     awk '{ print $1 }'\
-        # )"
-        # unset dirty deleted untracked newfile renamed
-
-
-        # while read -r line; do
-        #     case "$line"  in
-        #     *M*)                            dirty='!' ; ;;
-        #     *D*)                            deleted='x' ; ;;
-        #     *\?\?*)                         untracked='?' ; ;;
-        #     *A*)                            newfile='+' ; ;;
-        #     *R*)                            renamed='>' ; ;;
-        #     # *'Your branch is ahead of '*)   ahead='*' ; ;;
-        #     esac
-        # done <<< "$git_status"
-        # bits="$dirty$deleted$untracked$newfile$renamed" # $ahead"
-
         git_color=$'green'
         if [[ "$git_status" =~ [*!%] ]]; then
             git_color=$'yellow'
         fi
 
-        # if [ -n "$bits" ]; then
-        #     bits+=" "
-        #     git_color=$'yellow'
-        # fi
-
+        # there's 2 branch icon options \ue0a0 or \uf126
         PROMPT+=$'%K{'"$git_color"$'}'
         PROMPT+=$'\ue0b0'
-
-        # there's 2 branch icon options \ue0a0 or \uf126
-
-        # PROMPT+=$'%F{black} \ue0a0 '"$git_branch $bits"
         PROMPT+=$'%F{black} \uf126 '"$git_status "
-        PROMPT+=$'%F{'"$git_color"$'}%k\ue0b0'
-
-        # if [[ "$git_status" =~ [*!%] ]]; then
-        #     PROMPT+=$'%K{yellow}\ue0b0'
-        #     PROMPT+=$'%F{black} \ue0a0 '"$git_status "
-        #     PROMPT+=$'%F{yellow}%k\ue0b0'
-        # else
-        #     PROMPT+=$'%K{green}\ue0b0'
-        #     PROMPT+=$'%F{black} \ue0a0 '"$git_status "
-        #     PROMPT+=$'%F{green}%k\ue0b0'
-        # fi
-    else
-        PROMPT+=$'%k\ue0b0'
+        PROMPT+=$'%F{'"$git_color"$'}'
     fi
 
-    # Reset colors after prompt
-    # PROMPT+=$'%K{black}%F{white}'
+    # Reset colors after prompt, add final chevron.
+    PROMPT+=$'%k\ue0b0'
     PROMPT+=$'%k%f'
     PROMPT+=$' '
 }
