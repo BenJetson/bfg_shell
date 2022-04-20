@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Don't know why Mac does not include these editor bindings by default.
+# Set default editor. Eww emacs.
 export EDITOR="vim"
-
 
 # If this shell supports line editing, bind settings. (If interactive shell)
 if [[ "$(set -o | grep 'emacs\|\bvi\b' | cut -f2 | tr '\n' ':')" != 'off:off:' ]]
@@ -20,17 +19,23 @@ then
     bindkey "^[^[[C" forward-word
     bindkey "^[^[[D" backward-word
 
+    # Make history search move to end of line.
+    autoload -U history-search-end
+    zle -N history-beginning-search-backward-end history-search-end
+    zle -N history-beginning-search-forward-end history-search-end
 
-    # History Search
-    # autoload -U history-search-beginning
-    # zle -N history-beginning-search-backward history-search-beginning
-    # zle -N history-beginning-search-backward history-search-beginning
-    bindkey "^[[A" history-beginning-search-backward
-    bindkey "^[[B" history-beginning-search-forward
+    # History Search Keybinds
+    # Note the -end, which moves cursor to end of line.
+    bindkey "^[[A" history-beginning-search-backward-end
+    bindkey "^[[B" history-beginning-search-forward-end
 
     # Load autocomplete.
     # https://thevaluable.dev/zsh-completion-guide-examples/
     autoload -U compinit; compinit
+
+    # Load complist module.
+    # https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcomplist-Module
+    zmodload -i zsh/complist
 
     # Enable completion extensions.
     zstyle ':completion:*' completer _extensions _complete _approximate
@@ -46,16 +51,3 @@ then
     # Make autocomplete case-insensetive.
     zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 fi
-
-
-
-# Go env vars
-export GOPATH="$HOME/go"
-
-# Add Go binaries to path
-export PATH="$PATH:$GOPATH/bin"
-
-# Add Python3 packages to PATH
-export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.8/bin"
-
-
