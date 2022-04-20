@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Basic Editor Commands
 # Not sure why Apple doesn't include these editor commands.
