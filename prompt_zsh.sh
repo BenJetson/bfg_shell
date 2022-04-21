@@ -9,20 +9,17 @@ export GIT_PS1_SHOWSTASHSTATE=
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_STATESEPARATOR=" "
 
-bfg_set_prompt() {
-    PROMPT_SEPARATOR=$'\ue0b0'
-    PROMPT_APPLE=$'\uf179'
+## Left Prompt Segments ##
 
-    PROMPT=""
-
-    # Start Segment
-    if [ "$EUID" -ne 0 ]; then
-        PROMPT+=$'%F{black}%K{white} \uf179 %F{white}'
+bfg_prompt_segment_head() {
+    if [ "$EUID" -ne 0 ]; then # if effective user ID is NOT root
+        PROMPT+=$'%F{black}%K{white} \uf179 %F{white}' # apple icon
     else
-        PROMPT+=$'%F{white}%K{red} \uf49c root %F{red}'
+        PROMPT+=$'%F{white}%K{red} \uf49c root %F{red}' # shield icon
     fi
+}
 
-    # Path Segment
+bfg_prompt_segment_directory() {
     PROMPT+=$'%K{blue}\ue0b0'
     # PROMPT+=$' %d '
 
@@ -48,8 +45,9 @@ bfg_set_prompt() {
     # PROMPT+=$' %25<..<%~%<<%  '
 
     PROMPT+=$'%F{blue}'
+}
 
-    # Git segment
+bfg_prompt_segment_git() {
     git_status=$(__git_ps1 "%s")
     if [[ -n "$git_status" ]]; then
         git_color=$'green'
@@ -63,6 +61,18 @@ bfg_set_prompt() {
         PROMPT+=$'%F{black} \uf126 '"$git_status "
         PROMPT+=$'%F{'"$git_color"$'}'
     fi
+}
+
+## Left Prompt Handler ##
+
+bfg_set_prompt() {
+    # Clear existing prompt.
+    PROMPT=""
+
+    # Add segments.
+    bfg_prompt_segment_head
+    bfg_prompt_segment_directory
+    bfg_prompt_segment_git
 
     # Reset colors after prompt, add final chevron.
     PROMPT+=$'%k\ue0b0'
@@ -70,37 +80,38 @@ bfg_set_prompt() {
     PROMPT+=$' '
 }
 
+## Command Timer Helper ##
 
 bfg_command_timer() {
     bfg_command_start="$SECONDS"
 }
 
-bfg_set_rprompt() {
-    EXIT_CODE=$?
-    bfg_command_end="$SECONDS"
-    if [ -n "$bfg_command_start" ]; then
-        elapsed=$((bfg_command_end-bfg_command_start))
-    else
-        elapsed=0
-    fi
-    unset bfg_command_start
+## Right Prompt Segments ##
 
-    if [ $EXIT_CODE -eq 0 ]; then
-        RPROMPT=""
+bfg_rprompt_segment_exitcode() {
+    if [ $exit_code -eq 0 ]; then
         RPROMPT+=$'%k%F{green}\ue0b2'
         RPROMPT+=$'%K{green}%F{white}%B'
         # RPROMPT+=$' \u2714 ' # check symbol
         RPROMPT+=$' \uf00c ' # check symbol
         RPROMPT+=$'%K{green}%b'
     else
-        RPROMPT=""
         RPROMPT+=$'%k%F{red}\ue0b2'
         RPROMPT+=$'%K{red}%F{yellow}%B'
-        RPROMPT+=" $EXIT_CODE "
+        RPROMPT+=" $exit_code "
         # RPROMPT+=$'\u2717 ' # x symbol
         RPROMPT+=$'\uf467 ' # x symbol
         RPROMPT+=$'%K{red}%b'
     fi
+}
+
+bfg_rprompt_segment_elapsed() {
+    if [ -n "$bfg_command_start" ]; then
+        elapsed=$((bfg_command_end-bfg_command_start))
+    else
+        elapsed=0
+    fi
+    unset bfg_command_start
 
     if [ "$elapsed" -gt 2 ]; then
         RPROMPT+=$'%F{yellow}\ue0b2'
@@ -109,15 +120,36 @@ bfg_set_rprompt() {
         RPROMPT+=$'\uf252 ' # hourglass symbol
         RPROMPT+=$'%K{yellow}'
     fi
+}
 
+bfg_rprompt_segment_clock() {
     RPROMPT+=$'%F{white}\ue0b2'
     RPROMPT+=$'%K{white}%F{black}'
     RPROMPT+=$' %* \uf017 '
+}
 
-    # RPROMPT+=$'%K{black}%F{white}'
+## Right Prompt Handler ##
+
+bfg_set_rprompt() {
+    # Collect right prompt information.
+    exit_code=$?
+    bfg_command_end="$SECONDS"
+
+    # Clear existing right prompt.
+    RPROMPT=""
+
+    # Add right prompt segments.
+    bfg_rprompt_segment_exitcode
+    bfg_rprompt_segment_elapsed
+    bfg_rprompt_segment_clock
+
+    # Reset colors after right prompt.
     RPROMPT+=$'%k%f'
 }
 
+## Initialization ##
+
+# On initialization, add BFG functions to precmd, if not already present.
 bfg_precmds=( bfg_set_prompt bfg_set_rprompt )
 for target in "${bfg_precmds[@]}"; do
     should_add=1
@@ -135,7 +167,7 @@ for target in "${bfg_precmds[@]}"; do
     fi
 done
 
-
+# On initialization, add BFG functions to preexec, if not already present.
 bfg_preexecs=( bfg_command_timer )
 for target in "${bfg_preexecs[@]}"; do
     should_add=1
