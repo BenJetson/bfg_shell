@@ -9,6 +9,9 @@ export GIT_PS1_SHOWSTASHSTATE=
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_STATESEPARATOR=" "
 
+# Disable right prompt spacing.
+export ZLE_RPROMPT_INDENT=0
+
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
