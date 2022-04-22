@@ -32,13 +32,19 @@ then
     # History Verificaton
     set -o histverify
 
-    # Load autocomplete.
-    # https://thevaluable.dev/zsh-completion-guide-examples/
-    autoload -U compinit; compinit
-
     # Load complist module.
+    # This should be loaded before compinit so it can populate menu style.
     # https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcomplist-Module
     zmodload -i zsh/complist
+
+    # Load autocomplete.
+    # https://thevaluable.dev/zsh-completion-guide-examples/
+    autoload -U compinit
+    # compinit will do some checks to make sure permissions are correct.
+    # Default behavior is to prompt when it finds files with wrong permissions.
+    # Passing -i will make it never use insecure files.
+    # Passing -u will make it use insecure files without warning.
+    compinit -i
 
     # Enable completion extensions.
     zstyle ':completion:*' completer _extensions _complete _approximate
