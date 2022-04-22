@@ -12,6 +12,10 @@ export GIT_PS1_STATESEPARATOR=" "
 # Disable right prompt spacing.
 export ZLE_RPROMPT_INDENT=0
 
+# minpath
+source "$BFG_SHELL_HOME/minpath.sh"
+
+
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
