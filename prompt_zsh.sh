@@ -39,7 +39,13 @@ bfg_prompt_segment_directory() {
         PROMPT+=$'\uf07c' # folder icon
     fi
 
-    PROMPT+=$' %B%~%b '
+    if [ "$BFG_SHELL_PROMPT_MINPATH" -eq 1 ]; then
+        PROMPT+=$' %B'
+        bfg_minpath
+        PROMPT+=$'%b '
+    else
+        PROMPT+=$' %B%~%b '
+    fi
 
     # PROMPT+=$' %4(c.~/--/.)'
     # PROMPT+=$'%3~ '
