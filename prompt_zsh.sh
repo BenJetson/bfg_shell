@@ -28,7 +28,6 @@ bfg_prompt_segment_head() {
 
 bfg_prompt_segment_directory() {
     PROMPT+=$'%K{blue}\ue0b0'
-    # PROMPT+=$' %d '
 
     PROMPT+=$'%F{white} '
     if [ ! -w "$PWD" ]; then
@@ -46,16 +45,6 @@ bfg_prompt_segment_directory() {
     else
         PROMPT+=$' %B%~%b '
     fi
-
-    # PROMPT+=$' %4(c.~/--/.)'
-    # PROMPT+=$'%3~ '
-
-    # check conditional logic, notably:
-    #True if the current path, with prefix replacement, has at least n elements relative to the root directory, hence / is counted as 0 elements.
-    #https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
-
-    # PROMPT+=$' %3~ '
-    # PROMPT+=$' %25<..<%~%<<%  '
 
     PROMPT+=$'%F{blue}'
 }
