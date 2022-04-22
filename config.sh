@@ -29,6 +29,9 @@ then
     bindkey "^[[A" history-beginning-search-backward-end
     bindkey "^[[B" history-beginning-search-forward-end
 
+    # History Verificaton
+    set -o histverify
+
     # Load autocomplete.
     # https://thevaluable.dev/zsh-completion-guide-examples/
     autoload -U compinit; compinit
