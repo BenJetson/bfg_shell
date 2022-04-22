@@ -55,7 +55,13 @@ bfg_minpath() {
             min_segment+="${s:$i:1}"
 
             local matches=""
-            matches="$(find -- "$abs_path"* -maxdepth 0 -name "$min_segment*" | wc -l | awk '{ print $1 }')"
+            matches="$(
+                find -- "$abs_path"* \
+                    -maxdepth 0 \
+                    -name "$min_segment*" \
+                | wc -l \
+                | awk '{ print $1 }'
+            )"
 
             if [ "$matches" -eq 1 ] || [ "$i" -eq $((${#s}-1)) ]; then
                 min_path+="$min_segment/"
