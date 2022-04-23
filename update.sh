@@ -16,7 +16,7 @@ bfg_update() {
             exit 1
         fi
 
-        git pull
+        git pull --ff-only
     ) || return $?
 
     source "$BFG_SHELL_HOME/init.sh"
