@@ -3,6 +3,9 @@
 The `local` directory may (optionally) contain customizations that BFG Shell
 will load automatically on startup.
 
+These customizations are intended to be used on a per-machine basis and
+therefore will **not be committed to the repository**.
+
 ## Types
 
 The following types are available:
