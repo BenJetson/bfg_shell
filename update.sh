@@ -22,6 +22,8 @@ bfg_update() {
     source "$BFG_SHELL_HOME/init.sh"
     bfg_init
 
+    clear
+
     (
         source "$BFG_SHELL_HOME/splash.sh"
         bfg_splash
