@@ -10,7 +10,7 @@ therefore will **not be committed to the repository**.
 
 The following types are available:
 
-- `config` - contains shell configuration options or environment variables, etc.
+- `config` - contains shell configuration options or environment variables, etc
 - `aliases` - contains command aliases
 
 Both must end with `.sh` to be loaded.
@@ -18,7 +18,7 @@ Both must end with `.sh` to be loaded.
 ## Global Files
 
 Without any additional suffix, the local files are considered to be global and
-will be loaded in both `bash` or `zsh`.
+will be loaded by either `bash` or `zsh`.
 
 ## Per-Shell Files
 
