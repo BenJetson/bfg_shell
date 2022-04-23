@@ -29,9 +29,6 @@ then
     bindkey "^[[A" history-beginning-search-backward-end
     bindkey "^[[B" history-beginning-search-forward-end
 
-    # History Verificaton
-    set -o histverify
-
     # Load complist module.
     # This should be loaded before compinit so it can populate menu style.
     # https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcomplist-Module
@@ -59,4 +56,21 @@ then
 
     # Make autocomplete case-insensetive.
     zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
+    # Enable some of my favorite shell options.
+    # See also: https://zsh.sourceforge.io/Doc/Release/Options.html
+    set -o autocd # cd to directory if command not found is directory name
+    set -o autopushd # push to dirs stack when doing cd
+    set -o pushdignoredups # ignore duplicates in dirs stack
+    set -o pushdminus # swap behavior of minus and plus in dirs
+    set -o interactivecomments # allow comments in interactive shell
+    set -o histignoredups # ignore immediate duplicate entries in history
+    set -o histignorespace # do not history save commands starting with space
+    set -o histexpiredupsfirst # expire duplicate entries from history first
+    set -o extendedhistory # save timestamps and time elapsed to history
+    set -o histverify # verify history commands before running them
+    set -o noclobber # do not clobber files with redirection without prompt
+    set -o completeinword # do completion in this middle of words
+    set -o longlistjobs # print jobs list in long format
+    set -o sharehistory # share history between windows
 fi
