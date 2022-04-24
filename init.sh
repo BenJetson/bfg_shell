@@ -12,27 +12,47 @@ bfg_check_environment() {
     fi
 }
 
+bfg_source() {
+    source "$BFG_SHELL_HOME/$1.sh"
+}
+
+bfg_smart_source() {
+    local target=""
+    local detected_shell=""
+
+    target="$BFG_SHELL_HOME/$1"
+
+    detected_shell="bash"
+    if [ -n "$ZSH_VERSION" ]; then
+        detected_shell="zsh"
+    fi
+
+    if [ -f "$target.sh" ]; then
+        source "$target.sh"
+    fi
+
+    if [ -f "$target""_""$detected_shell.sh" ]; then
+        source "$target""_""$detected_shell.sh"
+    fi
+}
+
 bfg_init() {
     bfg_check_environment
 
-    source "$BFG_SHELL_HOME/alias.sh"
-    source "$BFG_SHELL_HOME/config.sh"
-    source "$BFG_SHELL_HOME/prompt_zsh.sh"
-    source "$BFG_SHELL_HOME/update.sh"
+    bfg_smart_source "alias"
+    bfg_smart_source "config"
+    bfg_smart_source "prompt"
+    bfg_source "update"
 
-    if [ -f "$BFG_SHELL_HOME/local/alias.sh" ]; then
-        source "$BFG_SHELL_HOME/local/alias.sh"
-    fi
 
-    if [ -f "$BFG_SHELL_HOME/local/config.sh" ]; then
-        source "$BFG_SHELL_HOME/local/config.sh"
-    fi
+    bfg_smart_source "local/alias"
+    bfg_smart_source "local/config"
 }
 
 bfg_reload() {
     bfg_check_environment
 
-    source "$BFG_SHELL_HOME/init.sh"
+    bfg_source "init"
     bfg_init
 
     echo "BFG Shell has been re-initialized."
