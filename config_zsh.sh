@@ -12,7 +12,6 @@ then
     # To see keys, run cat, press enter, then hit key combo to see output.
     bindkey "^[[H"   beginning-of-line
     bindkey "^[[F"   end-of-line
-    bindkey "^[[3~"  delete-char
     bindkey "^[^[[C" forward-word
     bindkey "^[^[[D" backward-word
 
