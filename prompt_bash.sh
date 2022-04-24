@@ -100,7 +100,10 @@ bfg_prompt_segment_directory() {
 
     PS1+="$BOLD_ON "
     if [ "$BFG_SHELL_PROMPT_MINPATH" -eq 1 ]; then
+        # minpath writes to PROMPT by default
+        PROMPT=""
         bfg_minpath
+        PS1+="$PROMPT"
     else
         PS1+=$'\w'
     fi
