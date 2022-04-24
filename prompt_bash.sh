@@ -9,9 +9,6 @@ export GIT_PS1_SHOWSTASHSTATE=
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_STATESEPARATOR=" "
 
-# Disable right prompt spacing.
-export ZLE_RPROMPT_INDENT=0
-
 # minpath
 source "$BFG_SHELL_HOME/minpath.sh"
 
@@ -132,116 +129,10 @@ bfg_set_prompt() {
     PROMPT+=$'\ue0b0'
     PROMPT+="$ALL_COLOR_RESET"
     PROMPT+=$'\033[K '
+
+    PS1="$PROMPT"
 }
 
-## Command Timer Helper ##
+## Use BFG Prompt
 
-bfg_command_timer() {
-    bfg_command_start="$SECONDS"
-}
-
-## Right Prompt Segments ##
-
-bfg_rprompt_segment_exitcode() {
-    if [ $exit_code -eq 0 ]; then
-        RPROMPT+="$BG_COLOR_RESET$FG_COLOR_GREEN"
-        RPROMPT+=$'\ue0b2'
-        RPROMPT+="$BG_COLOR_GREEN$FG_COLOR_WHITE$BOLD_ON"
-        # RPROMPT+=$' \u2714 ' # check symbol
-        RPROMPT+=$' \uf00c ' # check symbol
-        RPROMPT+="$BG_COLOR_GREEN$BOLD_OFF"
-    else
-        RPROMPT+="$BG_COLOR_RESET$FG_COLOR_RED"
-        RPROMPT+=$'\ue0b2'
-        RPROMPT+="$BG_COLOR_RED$FG_COLOR_YELLOW$BOLD_ON"
-        RPROMPT+=" $exit_code "
-        # RPROMPT+=$'\u2717 ' # x symbol
-        RPROMPT+=$'\uf467 ' # x symbol
-        RPROMPT+="$BG_COLOR_RED$BOLD_OFF"
-    fi
-}
-
-bfg_rprompt_segment_elapsed() {
-    if [ -n "$bfg_command_start" ]; then
-        elapsed=$((bfg_command_end-bfg_command_start))
-    else
-        elapsed=0
-    fi
-    unset bfg_command_start
-
-    if [ "$elapsed" -gt 2 ]; then
-        RPROMPT+="$FG_COLOR_YELLOW"
-        RPROMPT+=$'\ue0b2'
-        RPROMPT+="$BG_COLOR_YELLOW$FG_COLOR_BLACK"
-        RPROMPT+=" $elapsed""s "
-        RPROMPT+=$'\uf252 ' # hourglass symbol
-        RPROMPT+="$BG_COLOR_YELLOW"
-    fi
-}
-
-bfg_rprompt_segment_clock() {
-    RPROMPT+="$FG_COLOR_WHITE"
-    RPROMPT+=$'\ue0b2'
-    RPROMPT+="$BG_COLOR_WHITE$FG_COLOR_BLACK"
-    RPROMPT+=$' %* \uf017 '
-}
-
-## Right Prompt Handler ##
-
-bfg_set_rprompt() {
-    return 0
-    # Collect right prompt information.
-    exit_code=$?
-    bfg_command_end="$SECONDS"
-
-    # Clear existing right prompt.
-    RPROMPT=""
-
-    # Add right prompt segments.
-    bfg_rprompt_segment_exitcode
-    bfg_rprompt_segment_elapsed
-    bfg_rprompt_segment_clock
-
-    # Reset colors after right prompt.
-    RPROMPT+="$ALL_COLOR_RESET"
-    RPROMPT+=$'\033[K'
-}
-
-## Initialization ##
-
-# On initialization, add BFG functions to precmd, if not already present.
-bfg_precmds=( bfg_set_prompt bfg_set_rprompt )
-for target in "${bfg_precmds[@]}"; do
-    should_add=1
-    if [ ${#precmd_functions[@]} -gt 0 ]; then
-        for fn in "${precmd_functions[@]}"; do
-            if [[ "$fn" = "$target" ]]; then
-                should_add=0
-                break;
-            fi
-        done
-    fi
-
-    if [ $should_add -eq 1 ]; then
-        precmd_functions+=( "$target" )
-    fi
-done
-
-# On initialization, add BFG functions to preexec, if not already present.
-bfg_preexecs=( bfg_command_timer )
-for target in "${bfg_preexecs[@]}"; do
-    should_add=1
-    if [ ${#preexec_functions[@]} -gt 0 ]; then
-        for fn in "${preexec_functions[@]}"; do
-            if [[ "$fn" = "$target" ]]; then
-                should_add=0
-                break;
-            fi
-        done
-    fi
-
-    if [ $should_add -eq 1 ]; then
-        preexec_functions+=( "$target" )
-    fi
-done
-
+PROMPT_COMMAND="bfg_set_prompt"
