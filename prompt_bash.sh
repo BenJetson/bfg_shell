@@ -75,6 +75,7 @@ ICON_LOCK="$(bfg_get_icon f023)"
 ICON_HOME="$(bfg_get_icon f015)"
 ICON_FOLDER="$(bfg_get_icon f07c)"
 ICON_BRANCH="$(bfg_get_icon f126)"
+ICON_NETWORK="$(bfg_get_icon f817)"
 
 ## Head Segment Detection ##
 
@@ -97,6 +98,12 @@ case "$(uname)" in
         HEAD_ICON="$ICON_UBUNTU"
         ;;
 esac
+
+# If in a SSH session, append hostname and network icon.
+if [ -n "$SSH_CLIENT" ]; then
+    HEAD_ICON+=" $ICON_NETWORK "
+    HEAD_ICON+=$'\h'
+fi
 
 ## Left Prompt Segments ##
 

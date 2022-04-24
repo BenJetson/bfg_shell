@@ -35,6 +35,11 @@ case "$(uname)" in
         ;;
 esac
 
+# If in a SSH session, append hostname and network icon.
+if [ -n "$SSH_CLIENT" ]; then
+    HEAD_ICON+=$' \uf817' # network icon
+    HEAD_ICON+=$' %m'
+fi
 
 ## Left Prompt Segments ##
 
