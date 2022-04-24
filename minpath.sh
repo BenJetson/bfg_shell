@@ -16,9 +16,9 @@ bfg_minpath() {
     done <<< "${resolved_path}"
 
     # Build the minimum path from segments.
-    local s_idx
-    for (( s_idx=1; s_idx<=$#segments; s_idx++ )); do
-        s="${segments[$s_idx]}"
+    local s_idx=0
+    for s in "${segments[@]}"; do
+        ((s_idx++))
 
         if [ -z "$s" ]; then
             # When segment is empty, this indicates a leading slash.
