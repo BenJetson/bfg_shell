@@ -22,7 +22,7 @@ FG_COLOR_BLUE=$'\[\033[34m\]'
 # FG_COLOR_MAGENTA=$'\[\033[35m\]'
 # FG_COLOR_CYAN=$'\[\033[36m\]'
 FG_COLOR_WHITE=$'\[\033[37m\]'
-# FG_COLOR_BRIGHT_BLACK=$'\[\033[90m\]'
+FG_COLOR_BRIGHT_BLACK=$'\[\033[90m\]'
 # FG_COLOR_BRIGHT_RED=$'\[\033[91m\]'
 # FG_COLOR_BRIGHT_GREEN=$'\[\033[92m\]'
 # FG_COLOR_BRIGHT_YELLOW=$'\[\033[93m\]'
@@ -30,6 +30,7 @@ FG_COLOR_WHITE=$'\[\033[37m\]'
 # FG_COLOR_BRIGHT_MAGENTA=$'\[\033[95m\]'
 # FG_COLOR_BRIGHT_CYAN=$'\[\033[96m\]'
 # FG_COLOR_BRIGHT_WHITE=$'\[\033[97m\]'
+FG_COLOR_ORANGE=$'\[\033[38;5;202m\]'
 
 # BG_COLOR_BLACK=$'\[\033[40m\]'
 BG_COLOR_RED=$'\[\033[41m\]'
@@ -39,7 +40,7 @@ BG_COLOR_BLUE=$'\[\033[44m\]'
 # BG_COLOR_MAGENTA=$'\[\033[45m\]'
 # BG_COLOR_CYAN=$'\[\033[46m\]'
 BG_COLOR_WHITE=$'\[\033[47m\]'
-# BG_COLOR_BRIGHT_BLACK=$'\[\033[100m\]'
+BG_COLOR_BRIGHT_BLACK=$'\[\033[100m\]'
 # BG_COLOR_BRIGHT_RED=$'\[\033[101m\]'
 # BG_COLOR_BRIGHT_GREEN=$'\[\033[102m\]'
 # BG_COLOR_BRIGHT_YELLOW=$'\[\033[103m\]'
@@ -47,6 +48,8 @@ BG_COLOR_WHITE=$'\[\033[47m\]'
 # BG_COLOR_BRIGHT_MAGENTA=$'\[\033[105m\]'
 # BG_COLOR_BRIGHT_CYAN=$'\[\033[106m\]'
 # BG_COLOR_BRIGHT_WHITE=$'\[\033[107m\]'
+BG_COLOR_ORANGE=$'\[\033[48;5;202m\]'
+
 
 # FG_COLOR_RESET=$'\[\033[39m\]'
 BG_COLOR_RESET=$'\[\033[49m\]'
@@ -65,19 +68,43 @@ bfg_get_icon() {
 
 ICON_CHEVRON_RIGHT="$(bfg_get_icon e0b0)"
 ICON_APPLE="$(bfg_get_icon f179)"
+ICON_UBUNTU="$(bfg_get_icon f31b)"
+ICON_CONSOLE="$(bfg_get_icon fcb5)"
 ICON_SHIELD="$(bfg_get_icon f49c)"
 ICON_LOCK="$(bfg_get_icon f023)"
 ICON_HOME="$(bfg_get_icon f015)"
 ICON_FOLDER="$(bfg_get_icon f07c)"
 ICON_BRANCH="$(bfg_get_icon f126)"
 
+## Head Segment Detection ##
+
+HEAD_FG_COLOR="$FG_COLOR_WHITE"
+HEAD_BG_COLOR="$BG_COLOR_BRIGHT_BLACK"
+HEAD_END_COLOR="$FG_COLOR_BRIGHT_BLACK"
+HEAD_ICON="$ICON_CONSOLE"
+
+case "$(uname)" in
+    'Darwin')
+        HEAD_FG_COLOR="$FG_COLOR_BLACK"
+        HEAD_BG_COLOR="$BG_COLOR_WHITE"
+        HEAD_END_COLOR="$FG_COLOR_WHITE"
+        HEAD_ICON="$ICON_APPLE"
+        ;;
+    'Linux')
+        HEAD_FG_COLOR="$FG_COLOR_WHITE"
+        HEAD_BG_COLOR="$BG_COLOR_ORANGE"
+        HEAD_END_COLOR="$FG_COLOR_ORANGE"
+        HEAD_ICON="$ICON_UBUNTU"
+        ;;
+esac
+
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
     if [ "$EUID" -ne 0 ]; then # if effective user ID is NOT root
-        PS1+="$FG_COLOR_BLACK$BG_COLOR_WHITE"
-        PS1+=" $ICON_APPLE "
-        PS1+="$FG_COLOR_WHITE"
+        PS1+="$HEAD_FG_COLOR$HEAD_BG_COLOR"
+        PS1+=" $HEAD_ICON "
+        PS1+="$HEAD_END_COLOR"
     else
         PS1+="$FG_COLOR_WHITE$BG_COLOR_RED"
         PS1+=" $ICON_SHIELD root "
