@@ -133,7 +133,7 @@ bfg_prompt_segment_directory() {
     fi
 
     PS1+="$BOLD_ON "
-    if [ "${BFG_SHELL_PROMPT_MINPATH:0}" -eq 1 ]; then
+    if [ "${BFG_SHELL_PROMPT_MINPATH:-0}" -eq 1 ]; then
         # minpath writes to PROMPT by default
         PROMPT=""
         bfg_minpath
