@@ -54,43 +54,52 @@ ALL_COLOR_RESET=$'\[\033[0m\]'
 BOLD_ON=$'\[\033[1m\]'
 BOLD_OFF=$'\[\033[22m\]'
 
-BOLD_ON=$'\033[1m'
-BOLD_OFF=$'\033[22m'
+COLOR_ENDLINE=$'\[\033[K\]'
 
-ICON_CHEVRON_RIGHT="$(printf '\ue0b0')"
+bfg_get_icon() {
+    python3 -c "print('\u$1')"
+}
+
+ICON_CHEVRON_RIGHT="$(bfg_get_icon e0b0)"
+ICON_APPLE="$(bfg_get_icon f179)"
+ICON_SHIELD="$(bfg_get_icon f49c)"
+ICON_LOCK="$(bfg_get_icon f023)"
+ICON_HOME="$(bfg_get_icon f015)"
+ICON_FOLDER="$(bfg_get_icon f07c)"
+ICON_BRANCH="$(bfg_get_icon f126)"
 
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
     if [ "$EUID" -ne 0 ]; then # if effective user ID is NOT root
         PS1+="$FG_COLOR_BLACK$BG_COLOR_WHITE"
-        PS1+=$' \uf179 ' # apple icon
+        PS1+=" $ICON_APPLE "
         PS1+="$FG_COLOR_WHITE"
     else
         PS1+="$FG_COLOR_WHITE$BG_COLOR_RED"
-        PS1+=$' \uf49c root ' # shield icon
+        PS1+=" $ICON_SHIELD root "
         PS1+="$FG_COLOR_RED"
     fi
 }
 
 bfg_prompt_segment_directory() {
     PS1+="$BG_COLOR_BLUE"
-    PS1+=$'\ue0b0'
+    PS1+="$ICON_CHEVRON_RIGHT"
     PS1+="$FG_COLOR_WHITE "
 
     if [ ! -w "$PWD" ]; then
-        PS1+=$'\uf023' # lock icon
+        PS1+="$ICON_LOCK"
     elif [ "$PWD" = "$HOME" ]; then
-        PS1+=$'\uf015' # home icon
+        PS1+="$ICON_HOME"
     else
-        PS1+=$'\uf07c' # folder icon
+        PS1+="$ICON_FOLDER"
     fi
 
     PS1+="$BOLD_ON "
     if [ "$BFG_SHELL_PROMPT_MINPATH" -eq 1 ]; then
         bfg_minpath
     else
-        PS1+=$'%~'
+        PS1+=$'\w'
     fi
     PS1+="$BOLD_OFF "
 
@@ -107,11 +116,11 @@ bfg_prompt_segment_git() {
             git_color_bg="$BG_COLOR_YELLOW"
         fi
 
-        # there's 2 branch icon options \ue0a0 or \uf126
         PS1+="$git_color_bg"
-        PS1+=$'\ue0b0'
+        PS1+="$ICON_CHEVRON_RIGHT"
         PS1+="$FG_COLOR_BLACK"
-        PS1+=$' \uf126 '"$git_status "
+        PS1+=" $ICON_BRANCH "
+        PS1+="$git_status "
         PS1+="$git_color_fg"
     fi
 }
@@ -129,9 +138,9 @@ bfg_set_prompt() {
 
     # Reset colors after prompt, add final chevron.
     PS1+="$BG_COLOR_RESET"
-    PS1+=$'\ue0b0'
-    PS1+="$ALL_COLOR_RESET"
-    PS1+=$'\033[K '
+    PS1+="$ICON_CHEVRON_RIGHT"
+    PS1+="$ALL_COLOR_RESET$COLOR_ENDLINE"
+    PS1+=" "
 }
 
 ## Use BFG Prompt
