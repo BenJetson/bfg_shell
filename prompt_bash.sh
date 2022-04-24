@@ -60,38 +60,38 @@ ICON_CHEVRON_RIGHT="$(printf '\ue0b0')"
 
 bfg_prompt_segment_head() {
     if [ "$EUID" -ne 0 ]; then # if effective user ID is NOT root
-        PROMPT+="$FG_COLOR_BLACK$BG_COLOR_WHITE"
-        PROMPT+=$' \uf179 ' # apple icon
-        PROMPT+="$FG_COLOR_WHITE"
+        PS1+="$FG_COLOR_BLACK$BG_COLOR_WHITE"
+        PS1+=$' \uf179 ' # apple icon
+        PS1+="$FG_COLOR_WHITE"
     else
-        PROMPT+="$FG_COLOR_WHITE$BG_COLOR_RED"
-        PROMPT+=$' \uf49c root ' # shield icon
-        PROMPT+="$FG_COLOR_RED"
+        PS1+="$FG_COLOR_WHITE$BG_COLOR_RED"
+        PS1+=$' \uf49c root ' # shield icon
+        PS1+="$FG_COLOR_RED"
     fi
 }
 
 bfg_prompt_segment_directory() {
-    PROMPT+="$BG_COLOR_BLUE"
-    PROMPT+=$'\ue0b0'
-    PROMPT+="$FG_COLOR_WHITE "
+    PS1+="$BG_COLOR_BLUE"
+    PS1+=$'\ue0b0'
+    PS1+="$FG_COLOR_WHITE "
 
     if [ ! -w "$PWD" ]; then
-        PROMPT+=$'\uf023' # lock icon
+        PS1+=$'\uf023' # lock icon
     elif [ "$PWD" = "$HOME" ]; then
-        PROMPT+=$'\uf015' # home icon
+        PS1+=$'\uf015' # home icon
     else
-        PROMPT+=$'\uf07c' # folder icon
+        PS1+=$'\uf07c' # folder icon
     fi
 
-    PROMPT+="$BOLD_ON "
+    PS1+="$BOLD_ON "
     if [ "$BFG_SHELL_PROMPT_MINPATH" -eq 1 ]; then
         bfg_minpath
     else
-        PROMPT+=$'%~'
+        PS1+=$'%~'
     fi
-    PROMPT+="$BOLD_OFF "
+    PS1+="$BOLD_OFF "
 
-    PROMPT+="$FG_COLOR_BLUE"
+    PS1+="$FG_COLOR_BLUE"
 }
 
 bfg_prompt_segment_git() {
@@ -105,11 +105,11 @@ bfg_prompt_segment_git() {
         fi
 
         # there's 2 branch icon options \ue0a0 or \uf126
-        PROMPT+="$git_color_bg"
-        PROMPT+=$'\ue0b0'
-        PROMPT+="$FG_COLOR_BLACK"
-        PROMPT+=$' \uf126 '"$git_status "
-        PROMPT+="$git_color_fg"
+        PS1+="$git_color_bg"
+        PS1+=$'\ue0b0'
+        PS1+="$FG_COLOR_BLACK"
+        PS1+=$' \uf126 '"$git_status "
+        PS1+="$git_color_fg"
     fi
 }
 
@@ -117,7 +117,7 @@ bfg_prompt_segment_git() {
 
 bfg_set_prompt() {
     # Clear existing prompt.
-    PROMPT=""
+    PS1=""
 
     # Add segments.
     bfg_prompt_segment_head
@@ -125,12 +125,10 @@ bfg_set_prompt() {
     bfg_prompt_segment_git
 
     # Reset colors after prompt, add final chevron.
-    PROMPT+="$BG_COLOR_RESET"
-    PROMPT+=$'\ue0b0'
-    PROMPT+="$ALL_COLOR_RESET"
-    PROMPT+=$'\033[K '
-
-    PS1="$PROMPT"
+    PS1+="$BG_COLOR_RESET"
+    PS1+=$'\ue0b0'
+    PS1+="$ALL_COLOR_RESET"
+    PS1+=$'\033[K '
 }
 
 ## Use BFG Prompt
