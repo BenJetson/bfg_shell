@@ -16,11 +16,34 @@ export ZLE_RPROMPT_INDENT=0
 source "$BFG_SHELL_HOME/minpath.sh"
 
 
+## Head Segment Detection ##
+
+HEAD_FG_COLOR=$'white'
+HEAD_BG_COLOR=$'8'
+HEAD_ICON=$'\ufcb5' # console icon
+
+case "$(uname)" in
+    'Darwin')
+        HEAD_FG_COLOR=$'black'
+        HEAD_BG_COLOR=$'white'
+        HEAD_ICON=$'\uf179' # apple icon
+        ;;
+    'Linux')
+        HEAD_FG_COLOR=$'white'
+        HEAD_BG_COLOR=$'202' # orange
+        HEAD_ICON=$'\uf31b' # ubuntu icon
+        ;;
+esac
+
+
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
     if [ "$EUID" -ne 0 ]; then # if effective user ID is NOT root
-        PROMPT+=$'%F{black}%K{white} \uf179 %F{white}' # apple icon
+        PROMPT+=$'%F{'"$HEAD_FG_COLOR"$'}'
+        PROMPT+=$'%K{'"$HEAD_BG_COLOR"$'}'
+        PROMPT+=" $HEAD_ICON "
+        PROMPT+=$'%F{'"$HEAD_BG_COLOR"$'}'
     else
         PROMPT+=$'%F{white}%K{red} \uf49c root %F{red}' # shield icon
     fi
