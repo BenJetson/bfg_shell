@@ -13,7 +13,14 @@ bfg_check_environment() {
 }
 
 bfg_run() {
-    "$BFG_SHELL_HOME"/scripts/"$1".sh
+    local target=""
+    target="$BFG_SHELL_HOME"/scripts/"$1".sh
+
+    if [ -n "$ZSH_VERSION" ]; then
+        zsh "$target" "${@:2}"
+    else
+        bash "$target" "${@:2}"
+    fi
 }
 
 bfg_source() {
