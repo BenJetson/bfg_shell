@@ -40,10 +40,6 @@ BASHRC_FILE="$HOME/.bashrc"
 INSTALLED_TO_ZSHRC=$(bfg_block_present_in "$ZSHRC_FILE")
 INSTALLED_TO_BASHRC=$(bfg_block_present_in "$BASHRC_FILE")
 
-echo "ZSHRC: $INSTALLED_TO_ZSHRC"
-
-echo "BASHRC: $INSTALLED_TO_BASHRC"
-
 echo
 echo "Welcome to the BFG Shell uninstaller."
 echo
