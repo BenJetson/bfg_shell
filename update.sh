@@ -40,7 +40,7 @@ bfg_update() {
             return 1
         fi
 
-        echo "Press return to acknowledge or ^C to abort."
+        echo "Press return to start the update or ^C to abort."
         read -r
 
         echo "Fast forwarding changes..."
