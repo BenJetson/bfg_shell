@@ -23,6 +23,11 @@ if [ -z "$BFG_SHELL_NO_CLONE" ]; then
     SHOULD_CLONE=1
 fi
 
+CLONE_USING_HTTPS=0
+if [ -n "$BFG_SHELL_CLONE_HTTPS" ]; then
+    CLONE_USING_HTTPS=1
+fi
+
 DETECTED_SHELL="bash"
 if [ -n "$ZSH_VERSION" ]; then
     DETECTED_SHELL="zsh"
@@ -71,7 +76,11 @@ while true; do
 done
 
 if [ "$SHOULD_CLONE" -eq 1 ]; then
-    git clone git@github.com:BenJetson/bfg_shell.git "$BFG_SHELL_HOME"
+    if [ "$CLONE_USING_HTTPS" -eq 1 ]; then
+        git clone https://github.com/BenJetson/bfg_shell.git "$BFG_SHELL_HOME"
+    else
+        git clone git@github.com:BenJetson/bfg_shell.git "$BFG_SHELL_HOME"
+    fi
 fi
 
 if [ "$NEEDS_CLEANUP" -eq 1 ]; then
