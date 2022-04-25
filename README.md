@@ -38,12 +38,12 @@ Run the installation script for your shell.
 
 ```sh
 # For Bash
-bash <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/scripts/install.sh)
 ```
 
 ```sh
 # For Zsh
-zsh <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/install.sh)
+zsh <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/scripts/install.sh)
 ```
 
 Then simply follow the prompts and restart your shell when you are done.
