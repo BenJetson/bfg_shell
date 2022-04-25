@@ -44,7 +44,6 @@ bfg_init() {
     bfg_smart_source "prompt"
     bfg_source "update"
 
-
     bfg_smart_source "local/alias"
     bfg_smart_source "local/config"
 }
