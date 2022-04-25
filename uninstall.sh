@@ -72,8 +72,12 @@ while true; do
     esac
 done
 
-bfg_remove_block_from "$HOME/.zshrc"
-bfg_remove_block_from "$HOME/.bashrc"
+if [ "$INSTALLED_TO_ZSHRC" -eq 1 ]; then
+    bfg_remove_block_from "$ZSHRC_FILE"
+fi
+if [ "$INSTALLED_TO_BASHRC" -eq 1 ]; then
+    bfg_remove_block_from "$BASHRC_FILE"
+fi
 rm -rf "$BFG_SHELL_HOME"
 
 echo
