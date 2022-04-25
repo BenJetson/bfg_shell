@@ -97,7 +97,7 @@ source "$BFG_SHELL_HOME/init.sh"
 bfg_init
 
 (
-    source "$BFG_SHELL_HOME/splash.sh"
+    bfg_source "splash"
     bfg_splash
 )
 
