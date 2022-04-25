@@ -22,12 +22,6 @@ case "$(uname)" in
         ;;
 esac
 
-# If in a SSH session, append hostname and network icon.
-if [ -n "$SSH_CLIENT" ]; then
-    HEAD_ICON+=$' \uf817' # network icon
-    HEAD_ICON+=$' %m'
-fi
-
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
@@ -38,6 +32,16 @@ bfg_prompt_segment_head() {
         PROMPT+=$'%F{'"$HEAD_BG_COLOR"$'}'
     else
         PROMPT+=$'%F{white}%K{red} \uf49c root %F{red}' # shield icon
+    fi
+}
+
+bfg_prompt_segment_ssh() {
+    # If in a SSH session, show SSH segment.
+    if [ -n "$SSH_CLIENT" ]; then
+        PROMPT+=$'%K{cyan}\ue0b0'
+        PROMPT+=$'%F{black}'
+        PROMPT+=$' \uf817 %m '
+        PROMPT+=$'%F{cyan}'
     fi
 }
 
@@ -88,6 +92,7 @@ bfg_set_prompt() {
 
     # Add segments.
     bfg_prompt_segment_head
+    bfg_prompt_segment_ssh
     bfg_prompt_segment_directory
     bfg_prompt_segment_git
 

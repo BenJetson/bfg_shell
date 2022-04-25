@@ -8,7 +8,7 @@ FG_COLOR_GREEN=$'\[\033[32m\]'
 FG_COLOR_YELLOW=$'\[\033[33m\]'
 FG_COLOR_BLUE=$'\[\033[34m\]'
 # FG_COLOR_MAGENTA=$'\[\033[35m\]'
-# FG_COLOR_CYAN=$'\[\033[36m\]'
+FG_COLOR_CYAN=$'\[\033[36m\]'
 FG_COLOR_WHITE=$'\[\033[37m\]'
 FG_COLOR_BRIGHT_BLACK=$'\[\033[90m\]'
 # FG_COLOR_BRIGHT_RED=$'\[\033[91m\]'
@@ -26,7 +26,7 @@ BG_COLOR_GREEN=$'\[\033[42m\]'
 BG_COLOR_YELLOW=$'\[\033[43m\]'
 BG_COLOR_BLUE=$'\[\033[44m\]'
 # BG_COLOR_MAGENTA=$'\[\033[45m\]'
-# BG_COLOR_CYAN=$'\[\033[46m\]'
+BG_COLOR_CYAN=$'\[\033[46m\]'
 BG_COLOR_WHITE=$'\[\033[47m\]'
 BG_COLOR_BRIGHT_BLACK=$'\[\033[100m\]'
 # BG_COLOR_BRIGHT_RED=$'\[\033[101m\]'
@@ -87,12 +87,6 @@ case "$(uname)" in
         ;;
 esac
 
-# If in a SSH session, append hostname and network icon.
-if [ -n "$SSH_CLIENT" ]; then
-    HEAD_ICON+=" $ICON_NETWORK "
-    HEAD_ICON+=$'\h'
-fi
-
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
@@ -104,6 +98,18 @@ bfg_prompt_segment_head() {
         PS1+="$FG_COLOR_WHITE$BG_COLOR_RED"
         PS1+=" $ICON_SHIELD root "
         PS1+="$FG_COLOR_RED"
+    fi
+}
+
+bfg_prompt_segment_ssh() {
+    # If in a SSH session, show SSH segment.
+    if [ -n "$SSH_CLIENT" ]; then
+        PS1+="$BG_COLOR_CYAN"
+        PS1+="$ICON_CHEVRON_RIGHT"
+        PS1+="$FG_COLOR_BLACK "
+        PS1+="$ICON_NETWORK "
+        PS1+=$'\h '
+        PS1+="$FG_COLOR_CYAN"
     fi
 }
 
@@ -161,6 +167,7 @@ bfg_set_prompt() {
 
     # Add segments.
     bfg_prompt_segment_head
+    bfg_prompt_segment_ssh
     bfg_prompt_segment_directory
     bfg_prompt_segment_git
 
