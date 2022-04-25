@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ -z "$BFG_SHELL_HOME" ]; then
     export BFG_SHELL_HOME="$HOME/.bfg_shell"
 fi
