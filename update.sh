@@ -16,13 +16,41 @@ bfg_update() {
             exit 1
         fi
 
+        echo
+        echo "Checking for updates..."
+
+        git fetch
+
+        LOCAL_COMMIT_COUNT=$(git rev-list --count HEAD)
+        CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
+
+        NEW_COMMIT_HASH=$(git rev-parse --short origin)
+        REMOTE_COMMIT_COUNT=$(git rev-list --count origin)
+
+        echo
+        echo "Update check complete."
+        echo
+        echo "You are on #$LOCAL_COMMIT_COUNT (hash $CURRENT_COMMIT_HASH)."
+        echo "Remote is at #$REMOTE_COMMIT_COUNT (hash $NEW_COMMIT_HASH)."
+        echo
+
+        if [ ! "$REMOTE_COMMIT_COUNT" -gt "$LOCAL_COMMIT_COUNT" ]; then
+            echo "No update is available."
+            echo
+            return 1
+        fi
+
+        echo "Press return to acknowledge or ^C to abort."
+        read -r
+
+        echo "Fast forwarding changes..."
+        echo
+
         git pull --ff-only
     ) || return $?
 
     source "$BFG_SHELL_HOME/init.sh"
     bfg_init
-
-    clear
 
     (
         source "$BFG_SHELL_HOME/splash.sh"
