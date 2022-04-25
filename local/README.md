@@ -11,7 +11,7 @@ therefore will **not be committed to the repository**.
 The following types are available:
 
 - `config` - contains shell configuration options or environment variables, etc
-- `aliases` - contains command aliases
+- `alias` - contains command aliases
 
 Both must end with `.sh` to be loaded.
 
