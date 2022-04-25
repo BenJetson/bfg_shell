@@ -10,6 +10,40 @@ if [ -z "$BFG_SHELL_HOME" ]; then
     exit 1
 fi
 
+BFG_BLOCK_BEGIN="## BEGIN:BFG_SHELL ##"
+BFG_BLOCK_END="## END:BFG_SHELL ##"
+
+bfg_block_present_in() {
+    if [ -f "$1" ] && \
+        grep "$BFG_BLOCK_BEGIN" "$1" > /dev/null && \
+        grep "$BFG_BLOCK_END" "$1" > /dev/null
+    then
+        printf 1
+    else
+        printf 0
+    fi
+}
+
+bfg_remove_block_from() {
+    sed "/$BFG_BLOCK_BEGIN/,/$BFG_BLOCK_END/d" "$1" \
+        | tee "$1"
+}
+
+bfg_block_removal_warn() {
+    echo " - Anything between \"$BFG_BLOCK_BEGIN\" and \"$BFG_BLOCK_END\""
+    echo "   will be deleted from $1"
+}
+
+ZSHRC_FILE="$HOME/.zshrc"
+BASHRC_FILE="$HOME/.bashrc"
+
+INSTALLED_TO_ZSHRC=$(bfg_block_present_in "$ZSHRC_FILE")
+INSTALLED_TO_BASHRC=$(bfg_block_present_in "$BASHRC_FILE")
+
+echo "ZSHRC: $INSTALLED_TO_ZSHRC"
+
+echo "BASHRC: $INSTALLED_TO_BASHRC"
+
 echo
 echo "Welcome to the BFG Shell uninstaller."
 echo
@@ -19,10 +53,14 @@ echo
 echo "The uninstaller will perform the following actions, which are both"
 echo "DESTRUCTIVE and likely to be IRREVERSIBLE:"
 echo
-echo " - Anything between \"## BEGIN:BFG_SHELL ##\" and \"## END:BFG_SHELL ##\""
-echo "   will be deleted from $HOME/.zshrc"
 echo " - The $BFG_SHELL_HOME directory, and all of its contents, will be"
-echo "   deleted forever"
+echo "   deleted from disk"
+if [ "$INSTALLED_TO_ZSHRC" -eq 1 ]; then
+    bfg_block_removal_warn "$ZSHRC_FILE"
+fi
+if [ "$INSTALLED_TO_BASHRC" -eq 1 ]; then
+    bfg_block_removal_warn "$BASHRC_FILE"
+fi
 echo
 echo "These actions will undo the changes of the BFG Shell installer, but you"
 echo "will have to RESTART YOUR SHELL to unload BFG Shell completely."
@@ -38,8 +76,8 @@ while true; do
     esac
 done
 
-sed "/## BEGIN:BFG_SHELL ##/,/## END:BFG_SHELL ##/d" "$HOME/.zshrc" \
-    | tee "$HOME/.zshrc"
+bfg_remove_block_from "$HOME/.zshrc"
+bfg_remove_block_from "$HOME/.bashrc"
 rm -rf "$BFG_SHELL_HOME"
 
 echo
