@@ -55,6 +55,11 @@ echo "The installer will perform the following actions:"
 echo
 if [ "$SHOULD_CLONE" -eq 1 ]; then
     echo " - The BFG Shell repository will be cloned to $BFG_SHELL_HOME"
+    if [ "$CLONE_USING_HTTPS" -eq 1 ]; then
+        echo "   using an HTTPS connection."
+    else
+        echo "   using an SSH connection."
+    fi
 else
     echo " - Per your instructions, your existing BFG Shell install located"
     echo "   at $BFG_SHELL_HOME will be used and clone will not occur."
