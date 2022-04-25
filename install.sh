@@ -41,7 +41,7 @@ echo "Welcome to the BFG Shell installer."
 echo
 echo "The installer has detected that your shell is $DETECTED_SHELL."
 echo
-echo "This script is provided to you under the terms of the license agreement"
+echo "This software is provided to you under the terms of the license agreement"
 echo "that should have been distributed with this program. See LICENSE."
 echo
 echo "The installer will perform the following actions:"

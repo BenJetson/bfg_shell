@@ -43,7 +43,7 @@ INSTALLED_TO_BASHRC=$(bfg_block_present_in "$BASHRC_FILE")
 echo
 echo "Welcome to the BFG Shell uninstaller."
 echo
-echo "This script is provided to you under the terms of the license agreement"
+echo "This software is provided to you under the terms of the license agreement"
 echo "that should have been distributed with this program. See LICENSE."
 echo
 echo "The uninstaller will perform the following actions, which are both"
