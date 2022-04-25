@@ -62,6 +62,9 @@ Note that this will get the latest version always. This may introduce breaking
 changes at any time, without warning. This project is designed for my personal
 use, so there isn't really any versioning or release notes going on here.
 
+The reference numbers printed by the update script are counts of commits on the
+current branch and are not version numbers.
+
 ## Removal
 
 If you decide you do not want to use BFG Shell anymore, an uninstallation script
