@@ -75,5 +75,5 @@ actions that may be irreversible.
 
 ```sh
 # For Bash or Zsh
-$BFG_SHELL_HOME/uninstall.sh
+bfg_run uninstall
 ```

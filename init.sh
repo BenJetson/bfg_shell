@@ -12,6 +12,10 @@ bfg_check_environment() {
     fi
 }
 
+bfg_run() {
+    "$BFG_SHELL_HOME"/scripts/"$1".sh
+}
+
 bfg_source() {
     source "$BFG_SHELL_HOME/$1.sh"
 }
