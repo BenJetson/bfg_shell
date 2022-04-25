@@ -39,7 +39,9 @@ Run the installation script for your shell.
 ```sh
 # For Bash
 bash <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/install.sh)
+```
 
+```sh
 # For Zsh
 zsh <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/install.sh)
 ```
