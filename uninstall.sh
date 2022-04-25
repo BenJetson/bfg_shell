@@ -49,8 +49,8 @@ echo
 echo "The uninstaller will perform the following actions, which are both"
 echo "DESTRUCTIVE and likely to be IRREVERSIBLE:"
 echo
-echo " - The $BFG_SHELL_HOME directory, and all of its contents, will be"
-echo "   deleted from disk"
+echo " - The $BFG_SHELL_HOME directory, and all of its contents,"
+echo "   will be deleted from disk"
 if [ "$INSTALLED_TO_ZSHRC" -eq 1 ]; then
     bfg_block_removal_warn "$ZSHRC_FILE"
 fi
