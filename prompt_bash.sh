@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# Source Git Prompt defiinitions
-source "$BFG_SHELL_HOME/vendor/git-prompt.sh"
-export GIT_PS1_SHOWUPSTREAM="verbose"
-export GIT_PS1_SHOWCOLORHINTS=
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWSTASHSTATE=
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-export GIT_PS1_STATESEPARATOR=" "
-
-# Source minpath
-source "$BFG_SHELL_HOME/minpath.sh"
-
 ##  Color variables. ##
 
 FG_COLOR_BLACK=$'\[\033[30m\]'

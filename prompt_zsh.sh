@@ -1,20 +1,7 @@
 #!/bin/bash
 
-# Source Git Prompt defiinitions
-source "$BFG_SHELL_HOME/vendor/git-prompt.sh"
-export GIT_PS1_SHOWUPSTREAM="verbose"
-export GIT_PS1_SHOWCOLORHINTS=
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWSTASHSTATE=
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-export GIT_PS1_STATESEPARATOR=" "
-
 # Disable right prompt spacing.
 export ZLE_RPROMPT_INDENT=0
-
-# minpath
-source "$BFG_SHELL_HOME/minpath.sh"
-
 
 ## Head Segment Detection ##
 
