@@ -57,6 +57,6 @@ bfg_update() {
         bfg_splash
     )
 
-    echo "Your BFG Shell instance has been updated."
+    echo "Your BFG Shell installation has been updated."
     echo "For release notes, see the GitHub page."
 }

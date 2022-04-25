@@ -4,8 +4,8 @@ if [ -z "$BFG_SHELL_HOME" ]; then
     echo
     echo "ERROR!"
     echo
-    echo "This program does not know how to uninstall your BFG Shell instance"
-    echo "because \$BFG_SHELL_HOME is not set."
+    echo "This program does not know how to uninstall BFG Shell from your"
+    echo "system because \$BFG_SHELL_HOME is not set."
     echo
     exit 1
 fi
