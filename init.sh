@@ -52,6 +52,7 @@ bfg_init() {
 
     bfg_smart_source "alias"
     bfg_smart_source "config"
+    bfg_smart_source "escape"
     bfg_smart_source "prompt"
     bfg_source "update"
 
