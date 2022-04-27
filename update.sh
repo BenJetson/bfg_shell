@@ -40,8 +40,15 @@ bfg_update() {
             return 1
         fi
 
-        echo "Press return to start the update or ^C to abort."
-        read -r
+        while true; do
+            printf "Would you like to update? [y/n]: "
+            read -r REPLY
+            case $REPLY in
+                [yY]) echo ; break ;;
+                [nN]) echo ; echo "Abort!"; echo; exit 1 ;;
+                *) printf " \033[31m %s \n\033[0m" "invalid input"
+            esac
+        done
 
         echo "Fast forwarding changes..."
         echo
