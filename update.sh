@@ -21,6 +21,8 @@ bfg_update() {
 
         git fetch
 
+        LOCAL_BRANCH=$(git symbolic-ref --short HEAD)
+
         LOCAL_COMMIT_COUNT=$(git rev-list --count HEAD)
         CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
 
@@ -30,7 +32,9 @@ bfg_update() {
         echo
         echo "Update check complete."
         echo
-        echo "You are on #$LOCAL_COMMIT_COUNT (hash $CURRENT_COMMIT_HASH)."
+        echo "You are on the $LOCAL_BRANCH branch."
+        echo
+        echo "Local is at #$LOCAL_COMMIT_COUNT (hash $CURRENT_COMMIT_HASH)."
         echo "Remote is at #$REMOTE_COMMIT_COUNT (hash $NEW_COMMIT_HASH)."
         echo
 
