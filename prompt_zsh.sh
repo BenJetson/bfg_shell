@@ -28,7 +28,14 @@ bfg_rprompt_segment_exitcode() {
             126) RPROMPT+="NO EXEC";;
             127) RPROMPT+="NO CMD" ;;
 
-            # Special signal exit codes.
+            # Special signal exit codes. 128 plus the code.
+            #
+            # You can run a command to see exit codes on your system.
+            #   macOS: kill -l | tr " " "\n" | cat -n
+            #   Linux: kill -l
+            #
+            # Note that signals can differ by system. The ones here are common
+            # to both macOS and Linux with the same code number.
             129) RPROMPT+="HUP" ;;
             130) RPROMPT+="INT" ;;
             131) RPROMPT+="QUIT";;
@@ -38,7 +45,9 @@ bfg_rprompt_segment_exitcode() {
             137) RPROMPT+="KILL";;
             139) RPROMPT+="SEGV";;
             141) RPROMPT+="PIPE";;
+            142) RPROMPT+="ALRM";;
             143) RPROMPT+="TERM";;
+            156) RPROMPT+="WINCH";;
 
             # Unknown; just show the code.
             *) RPROMPT+="$exit_code" ;;
