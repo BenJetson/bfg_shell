@@ -20,10 +20,32 @@ bfg_rprompt_segment_exitcode() {
         RPROMPT+=$'%K{green}%b'
     else
         RPROMPT+=$'%k%F{red}\ue0b2'
-        RPROMPT+=$'%K{red}%F{yellow}%B'
-        RPROMPT+=" $exit_code "
+        RPROMPT+=$'%K{red}%F{yellow}%B '
+        # Show the exit code, some are special.
+        # See also: https://tldp.org/LDP/abs/html/exitcodes.html
+        case "$exit_code" in
+            # Invocation errors.
+            126) RPROMPT+="NO EXEC";;
+            127) RPROMPT+="NO CMD" ;;
+
+            # Special signal exit codes.
+            129) RPROMPT+="HUP" ;;
+            130) RPROMPT+="INT" ;;
+            131) RPROMPT+="QUIT";;
+            132) RPROMPT+="ILL" ;;
+            134) RPROMPT+="ABRT";;
+            136) RPROMPT+="FPE" ;;
+            137) RPROMPT+="KILL";;
+            139) RPROMPT+="SEGV";;
+            141) RPROMPT+="PIPE";;
+            143) RPROMPT+="TERM";;
+
+            # Unknown; just show the code.
+            *) RPROMPT+="$exit_code" ;;
+        esac
+
         # RPROMPT+=$'\u2717 ' # x symbol
-        RPROMPT+=$'\uf467 ' # x symbol
+        RPROMPT+=$' \uf467 ' # x symbol
         RPROMPT+=$'%K{red}%b'
     fi
 }
