@@ -66,20 +66,27 @@ COLOR_ENDLINE=$(bfg_escape $'\033[K')
 ## Icon Variables ##
 # These are calculated once at source time to accelerate prompt handlers.
 
-bfg_get_icon() {
-    python3 -c "print('\u$1')"
-}
+# If the shell natively supports unicode, use builtins for speed.
+if [ $'\ue0b0' = "$(python3 -c "print('\ue0b0')")" ]; then
+    bfg_get_icon() {
+        echo -n "$1"
+    }
+else
+    bfg_get_icon() {
+        python3 -c "print('$1')"
+    }
+fi
 
-ICON_CHEVRON_RIGHT="$(bfg_get_icon e0b0)"
-ICON_APPLE="$(bfg_get_icon f179)"
-ICON_UBUNTU="$(bfg_get_icon f31b)"
-ICON_CONSOLE="$(bfg_get_icon fcb5)"
-ICON_SHIELD="$(bfg_get_icon f49c)"
-ICON_LOCK="$(bfg_get_icon f023)"
-ICON_HOME="$(bfg_get_icon f015)"
-ICON_FOLDER="$(bfg_get_icon f07c)"
-ICON_BRANCH="$(bfg_get_icon f126)"
-ICON_NETWORK="$(bfg_get_icon f817)"
+ICON_CHEVRON_RIGHT="$(bfg_get_icon "\ue0b0")"
+ICON_APPLE="$(bfg_get_icon "\uf179")"
+ICON_UBUNTU="$(bfg_get_icon "\uf31b")"
+ICON_CONSOLE="$(bfg_get_icon "\ufcb5")"
+ICON_SHIELD="$(bfg_get_icon "\uf49c")"
+ICON_LOCK="$(bfg_get_icon "\uf023")"
+ICON_HOME="$(bfg_get_icon "\uf015")"
+ICON_FOLDER="$(bfg_get_icon "\uf07c")"
+ICON_BRANCH="$(bfg_get_icon "\uf126")"
+ICON_NETWORK="$(bfg_get_icon "\uf817")"
 
 ## Head Segment Detection ##
 
