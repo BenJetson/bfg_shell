@@ -69,7 +69,9 @@ COLOR_ENDLINE=$(bfg_escape $'\033[K')
 # If the shell natively supports unicode, use builtins for speed.
 if [ $'\ue0b0' = "$(python3 -c "print('\ue0b0')")" ]; then
     bfg_get_icon() {
-        echo -n "$1"
+        # need to pass directly for unicode escape to process.
+        # shellcheck disable=SC2059
+        printf "$1"
     }
 else
     bfg_get_icon() {
