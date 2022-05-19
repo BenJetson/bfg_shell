@@ -54,11 +54,20 @@ bfg_minpath() {
         for ((i=0; i<${#s}; i++ )); do
             min_segment+="${s:$i:1}"
 
+            # Note that find errors, such as permission denied, are silenced
+            # here by piping to /dev/null.
+            #
+            # A good command to test this is cd $(mktemp -d) on Mac.
+            # Should generate a path with a variety of permissions.
+            #
+            # If you are modifying this or trying to debug, maybe remove that
+            # line while you are testing.
             local matches=""
             matches="$(
                 find -- "$abs_path"* \
                     -maxdepth 0 \
                     -name "$min_segment*" \
+                    2>/dev/null \
                 | wc -l \
                 | awk '{ print $1 }'
             )"
