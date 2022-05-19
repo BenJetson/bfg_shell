@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# minpath
-bfg_source "minpath"
-
 # Source Git Prompt defiinitions
 bfg_source "vendor/git-prompt"
 
@@ -62,6 +59,10 @@ BOLD_ON=$(bfg_escape $'\033[1m')
 BOLD_OFF=$(bfg_escape $'\033[22m')
 
 COLOR_ENDLINE=$(bfg_escape $'\033[K')
+
+# load minpath
+bfg_source "minpath"
+
 
 ## Icon Variables ##
 # These are calculated once at source time to accelerate prompt handlers.

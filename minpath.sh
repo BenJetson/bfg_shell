@@ -73,7 +73,14 @@ bfg_minpath() {
             )"
 
             if [ "$matches" -eq 1 ] || [ "$i" -eq $((${#s}-1)) ]; then
-                min_path+="$min_segment/"
+                if [ "$i" -ne $((${#s}-1)) ]; then
+                    min_path+="$BOLD_OFF"
+                fi
+                min_path+="$min_segment"
+                if [ "$i" -ne $((${#s}-1)) ]; then
+                    min_path+="$BOLD_ON"
+                fi
+                min_path+="/"
                 break;
             fi
         done
