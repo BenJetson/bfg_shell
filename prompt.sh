@@ -164,7 +164,13 @@ bfg_prompt_segment_directory() {
 }
 
 bfg_prompt_segment_git() {
-    git_status=$(__git_ps1 "%s")
+    git_status=$(__git_ps1 "%s" | awk 'BEGIN {
+        BRANCH_LEN=22
+    }{
+        printf "%s", substr($1, 1, BRANCH_LEN);
+        if (length($1) > BRANCH_LEN) printf "...";
+        if (length($2) > 0) printf " %s", $2;
+    }')
     if [[ -n "$git_status" ]]; then
         git_color_fg="$FG_COLOR_GREEN"
         git_color_bg="$BG_COLOR_GREEN"
