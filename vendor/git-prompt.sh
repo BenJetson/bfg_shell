@@ -572,7 +572,11 @@ __git_ps1 ()
 	fi
 
 	local f="$h$w$i$s$u$p"
-	local gitstring="$c$b${f:+$z$f}${sparse}$r${upstream}"
+
+	# XXX Note - I modified this. I wanted a space to always be there if the
+	# right side of the string has content. For awk'ing the columns.
+	local rightside="$f${sparse}$r${upstream}"
+	local gitstring="$c$b${rightside:+$z$rightside}"
 
 	if [ $pcmode = yes ]; then
 		if [ "${__git_printf_supports_v-}" != yes ]; then
