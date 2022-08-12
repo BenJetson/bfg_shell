@@ -15,6 +15,18 @@ then
     bindkey "^[^[[C" forward-word
     bindkey "^[^[[D" backward-word
 
+    # Use bash word style, which will respect directory delimiters.
+    autoload -U select-word-style
+    select-word-style bash
+
+    # Just leaving this note here for myself.
+    # Deleting words forwards/backwards requires configuring what key sequences
+    # iTerm 2 sends when option+delete or option+fn+delete are pressed.
+    #
+    # Add these bindings to iTerm2 Preferences > Keys > Key Bindings:
+    #   - Option +  <- Delete (backspace) maps to Send Hex Codes "0x1b 0x7f".
+    #   - Option + Del -> (delete) maps to Send Escape Sequence and enter "d".
+
     # Make history search move to end of line.
     autoload -U history-search-end
     zle -N history-beginning-search-backward-end history-search-end
