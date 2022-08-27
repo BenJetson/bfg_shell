@@ -40,5 +40,8 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 
+# Git Prompt ignore aliases.
+alias git config --local prompt.ignore 1
+
 # iCloud Helper
 alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
