@@ -51,6 +51,7 @@ bfg_init() {
     bfg_check_environment
 
     bfg_smart_source "alias"
+    bfg_smart_source "func"
     bfg_smart_source "config"
     bfg_smart_source "escape"
     bfg_smart_source "prompt"

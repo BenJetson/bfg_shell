@@ -164,6 +164,14 @@ bfg_prompt_segment_directory() {
 }
 
 bfg_prompt_segment_git() {
+    # If the git repository has been configured to be ignored, no segment.
+    # Inspired by https://stackoverflow.com/a/29416158.
+    #
+    # See matching alias
+    if [[ $(git config prompt.ignore) ]]; then
+        return 0
+    fi
+
     git_status=$(__git_ps1 "%s" | awk 'BEGIN {
         BRANCH_LEN=22
     }{
