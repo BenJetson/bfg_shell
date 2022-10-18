@@ -31,6 +31,7 @@ FG_COLOR_BRIGHT_BLACK=$(bfg_escape $'\033[90m')
 # FG_COLOR_BRIGHT_CYAN=$(bfg_escape $'\033[96m')
 # FG_COLOR_BRIGHT_WHITE=$(bfg_escape $'\033[97m')
 FG_COLOR_ORANGE=$(bfg_escape $'\033[38;5;202m')
+FG_COLOR_RASPBERRY=$(bfg_escape $'\033[38;5;161m')
 
 # BG_COLOR_BLACK=$(bfg_escape $'\033[40m')
 BG_COLOR_RED=$(bfg_escape $'\033[41m')
@@ -49,6 +50,7 @@ BG_COLOR_BRIGHT_BLACK=$(bfg_escape $'\033[100m')
 # BG_COLOR_BRIGHT_CYAN=$(bfg_escape $'\033[106m')
 # BG_COLOR_BRIGHT_WHITE=$(bfg_escape $'\033[107m')
 BG_COLOR_ORANGE=$(bfg_escape $'\033[48;5;202m')
+BG_COLOR_RASPBERRY=$(bfg_escape $'\033[48;5;161m')
 
 
 # FG_COLOR_RESET=$(bfg_escape $'\033[39m')
@@ -83,6 +85,7 @@ fi
 ICON_CHEVRON_RIGHT="$(bfg_get_icon "e0b0")"
 ICON_APPLE="$(bfg_get_icon "f179")"
 ICON_UBUNTU="$(bfg_get_icon "f31b")"
+ICON_RASPI="$(bfg_get_icon "f315")"
 ICON_CONSOLE="$(bfg_get_icon "fcb5")"
 ICON_SHIELD="$(bfg_get_icon "f49c")"
 ICON_LOCK="$(bfg_get_icon "f023")"
@@ -98,20 +101,28 @@ HEAD_BG_COLOR="$BG_COLOR_BRIGHT_BLACK"
 HEAD_END_COLOR="$FG_COLOR_BRIGHT_BLACK"
 HEAD_ICON="$ICON_CONSOLE"
 
-case "$(uname)" in
-    'Darwin')
-        HEAD_FG_COLOR="$FG_COLOR_BLACK"
-        HEAD_BG_COLOR="$BG_COLOR_WHITE"
-        HEAD_END_COLOR="$FG_COLOR_WHITE"
-        HEAD_ICON="$ICON_APPLE"
-        ;;
-    'Linux')
-        HEAD_FG_COLOR="$FG_COLOR_WHITE"
-        HEAD_BG_COLOR="$BG_COLOR_ORANGE"
-        HEAD_END_COLOR="$FG_COLOR_ORANGE"
-        HEAD_ICON="$ICON_UBUNTU"
-        ;;
-esac
+
+if [ -f /etc/rpi-issue ]; then
+    HEAD_FG_COLOR="$FG_COLOR_WHITE"
+    HEAD_BG_COLOR="$BG_COLOR_RASPBERRY"
+    HEAD_END_COLOR="$FG_COLOR_RASPBERRY"
+    HEAD_ICON="$ICON_RASPI"
+else
+    case "$(uname)" in
+        'Darwin')
+            HEAD_FG_COLOR="$FG_COLOR_BLACK"
+            HEAD_BG_COLOR="$BG_COLOR_WHITE"
+            HEAD_END_COLOR="$FG_COLOR_WHITE"
+            HEAD_ICON="$ICON_APPLE"
+            ;;
+        'Linux')
+            HEAD_FG_COLOR="$FG_COLOR_WHITE"
+            HEAD_BG_COLOR="$BG_COLOR_ORANGE"
+            HEAD_END_COLOR="$FG_COLOR_ORANGE"
+            HEAD_ICON="$ICON_UBUNTU"
+            ;;
+    esac
+fi
 
 ## Left Prompt Segments ##
 
