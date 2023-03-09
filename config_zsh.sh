@@ -15,6 +15,9 @@ then
     bindkey "^[^[[C" forward-word
     bindkey "^[^[[D" backward-word
 
+    # Load the zmv multiple file moving utility.
+    autoload zmv
+
     # Use bash word style, which will respect directory delimiters.
     autoload -U select-word-style
     select-word-style bash
