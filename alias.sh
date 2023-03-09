@@ -19,6 +19,7 @@ alias lla='ls -la'
 # Git Aliases
 alias gs='git status'
 alias gc='git commit'
+alias gcl='git clone'
 alias gck='git checkout'
 alias gf='git fetch'
 alias gp='git pull'
