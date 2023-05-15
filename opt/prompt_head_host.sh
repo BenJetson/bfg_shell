@@ -22,6 +22,7 @@ if [[ "$(hostname)" == *".palmetto."* ]]; then
             HEAD_BG_COLOR="$BG_COLOR_ORANGE";
             HEAD_END_COLOR="$FG_COLOR_ORANGE";
             HEAD_ICON="$ICON_CPU";
+            SHOW_SSH_SEGMENT=1;
             ;;
         master*)
             HEAD_FG_COLOR="$FG_COLOR_ORANGE";

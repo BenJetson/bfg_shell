@@ -146,9 +146,14 @@ bfg_prompt_segment_head() {
     fi
 }
 
+SHOW_SSH_SEGMENT=0
+if [ -n "$SSH_CLIENT" ]; then
+    SHOW_SSH_SEGMENT=1
+fi
+
 bfg_prompt_segment_ssh() {
     # If in a SSH session, show SSH segment.
-    if [ -n "$SSH_CLIENT" ]; then
+    if [ "$SHOW_SSH_SEGMENT" -eq 1 ]; then
         PROMPT+="$BG_COLOR_CYAN"
         PROMPT+="$ICON_CHEVRON_RIGHT"
         PROMPT+="$FG_COLOR_BLACK "
