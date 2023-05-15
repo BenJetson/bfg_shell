@@ -29,4 +29,7 @@ then
     # To see keys, run cat, press enter, then hit key combo to see output.
     bind '"\e\e[C": forward-word'
     bind '"\e\e[D": backward-word'
+
+    # No history if space.
+    export HISTCONTROL=ignorespace
 fi
