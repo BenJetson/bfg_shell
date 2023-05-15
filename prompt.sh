@@ -70,11 +70,19 @@ bfg_source "minpath"
 # These are calculated once at source time to accelerate prompt handlers.
 
 # If the shell natively supports unicode, use builtins for speed.
-if [ $'\ue0b0' = "$(perl -CS -E 'print "\x{e0b0}"')" ]; then
+if   [ $'\ue0b0' = "$(perl -CS -E 'print "\x{e0b0}"')" ]; then
     bfg_get_icon() {
-        # need to pass directly for unicode escape to process.
-        # shellcheck disable=SC2059
-        printf "\u$1"
+        # Correct escape depends on length of code point. See also:
+        # https://github.com/ryanoasis/nerd-fonts/wiki/FAQ-and-Troubleshooting
+        if [ "${#1}" -eq 5 ]; then
+            # need to pass directly for unicode escape to process.
+            # shellcheck disable=SC2059
+            printf "\U$1"
+        else
+            # need to pass directly for unicode escape to process.
+            # shellcheck disable=SC2059
+            printf "\u$1"
+        fi
     }
 else
     bfg_get_icon() {
