@@ -20,9 +20,10 @@ FG_COLOR_GREEN=$(bfg_escape $'\033[32m')
 FG_COLOR_YELLOW=$(bfg_escape $'\033[33m')
 FG_COLOR_BLUE=$(bfg_escape $'\033[34m')
 # FG_COLOR_MAGENTA=$(bfg_escape $'\033[35m')
-FG_COLOR_CYAN=$(bfg_escape $'\033[36m')
+# FG_COLOR_CYAN=$(bfg_escape $'\033[36m')
 FG_COLOR_WHITE=$(bfg_escape $'\033[37m')
 FG_COLOR_BRIGHT_BLACK=$(bfg_escape $'\033[90m')
+FG_COLOR_BRIGHT_GREY=$(bfg_escape $'\033[38;5;252m')
 # FG_COLOR_BRIGHT_RED=$(bfg_escape $'\033[91m')
 # FG_COLOR_BRIGHT_GREEN=$(bfg_escape $'\033[92m')
 # FG_COLOR_BRIGHT_YELLOW=$(bfg_escape $'\033[93m')
@@ -39,9 +40,10 @@ BG_COLOR_GREEN=$(bfg_escape $'\033[42m')
 BG_COLOR_YELLOW=$(bfg_escape $'\033[43m')
 BG_COLOR_BLUE=$(bfg_escape $'\033[44m')
 # BG_COLOR_MAGENTA=$(bfg_escape $'\033[45m')
-BG_COLOR_CYAN=$(bfg_escape $'\033[46m')
+# BG_COLOR_CYAN=$(bfg_escape $'\033[46m')
 BG_COLOR_WHITE=$(bfg_escape $'\033[47m')
 BG_COLOR_BRIGHT_BLACK=$(bfg_escape $'\033[100m')
+BG_COLOR_BRIGHT_GREY=$(bfg_escape $'\033[48;5;252m')
 # BG_COLOR_BRIGHT_RED=$(bfg_escape $'\033[101m')
 # BG_COLOR_BRIGHT_GREEN=$(bfg_escape $'\033[102m')
 # BG_COLOR_BRIGHT_YELLOW=$(bfg_escape $'\033[103m')
@@ -154,12 +156,12 @@ fi
 bfg_prompt_segment_ssh() {
     # If in a SSH session, show SSH segment.
     if [ "$SHOW_SSH_SEGMENT" -eq 1 ]; then
-        PROMPT+="$BG_COLOR_CYAN"
+        PROMPT+="$BG_COLOR_BRIGHT_GREY"
         PROMPT+="$ICON_CHEVRON_RIGHT"
         PROMPT+="$FG_COLOR_BLACK "
         PROMPT+="$ICON_NETWORK "
         PROMPT+=$'\h '
-        PROMPT+="$FG_COLOR_CYAN"
+        PROMPT+="$FG_COLOR_BRIGHT_GREY"
     fi
 }
 
