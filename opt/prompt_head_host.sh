@@ -18,16 +18,16 @@ BG_COLOR_PACIFIC_BLUE=$(bfg_escape $'\033[48;5;27m')
 if [[ "$(hostname)" == *".palmetto."* ]]; then
     case "$(hostname)" in
         node*)
-            HEAD_FG_COLOR="$FG_COLOR_BRIGHT_BLACK";
-            HEAD_BG_COLOR="$BG_COLOR_ORANGE";
-            HEAD_END_COLOR="$FG_COLOR_ORANGE";
+            HEAD_FG_COLOR="$FG_COLOR_BRIGHT_ORANGE";
+            HEAD_BG_COLOR="$BG_COLOR_BRIGHT_BLACK";
+            HEAD_END_COLOR="$FG_COLOR_BRIGHT_BLACK";
             HEAD_ICON="$ICON_CPU";
             SHOW_SSH_SEGMENT=1;
             ;;
         master*)
-            HEAD_FG_COLOR="$FG_COLOR_ORANGE";
-            HEAD_BG_COLOR="$BG_COLOR_PURPLE";
-            HEAD_END_COLOR="$FG_COLOR_PURPLE";
+            HEAD_FG_COLOR="$FG_COLOR_PURPLE";
+            HEAD_BG_COLOR="$BG_COLOR_ORANGE";
+            HEAD_END_COLOR="$FG_COLOR_ORANGE";
             HEAD_ICON="$ICON_CROWN";
             ;;
         *)
