@@ -32,4 +32,8 @@ then
 
     # No history if space.
     export HISTCONTROL=ignorespace
+    # Control history line count in memory for session.
+    export HISTSIZE=10000
+    # Control history line count on disk for persistence.
+    export HISTFILESIZE=10000
 fi
