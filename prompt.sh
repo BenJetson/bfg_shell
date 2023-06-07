@@ -191,7 +191,7 @@ bfg_prompt_segment_directory() {
 
 bfg_prompt_segment_git() {
     # If git is not available, then skip this segment.
-    if ! which git 2>/dev/null; then
+    if ! which git >/dev/null 2>&1; then
         return 0
     fi
 
