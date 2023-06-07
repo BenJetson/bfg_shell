@@ -32,7 +32,7 @@ if [[ "$(hostname)" == *".palmetto."* ]]; then
             HEAD_ICON="$ICON_CROWN";
             ;;
         hpcdtn*)
-            HEAD_FG_COLOR="$FG_COLOR_BRIGHT_BLACK";
+            HEAD_FG_COLOR="$FG_COLOR_BLACK";
             HEAD_BG_COLOR="$BG_COLOR_GREEN";
             HEAD_END_COLOR="$FG_COLOR_GREEN";
             HEAD_ICON="$ICON_UPLOAD";
