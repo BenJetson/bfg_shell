@@ -2,6 +2,7 @@
 
 ICON_PALM_TREE="$(bfg_get_icon "f1055")"
 ICON_CPU="$(bfg_get_icon "f4bc")"
+ICON_CLOUD_UPLOAD="$(bfg_get_icon "f0ee")"
 ICON_ATLASSIAN="$(bfg_get_icon "f0804")"
 ICON_PAW="$(bfg_get_icon "f03e9")"
 ICON_TEST_TUBE="$(bfg_get_icon "f0668")"
@@ -29,6 +30,12 @@ if [[ "$(hostname)" == *".palmetto."* ]]; then
             HEAD_BG_COLOR="$BG_COLOR_ORANGE";
             HEAD_END_COLOR="$FG_COLOR_ORANGE";
             HEAD_ICON="$ICON_CROWN";
+            ;;
+        hpcdtn*)
+            HEAD_FG_COLOR="$BG_COLOR_BRIGHT_BLACK";
+            HEAD_BG_COLOR="$BG_COLOR_GREEN";
+            HEAD_END_COLOR="$FG_COLOR_GREEN";
+            HEAD_ICON="$ICON_CLOUD_UPLOAD";
             ;;
         *)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
