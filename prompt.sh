@@ -160,7 +160,11 @@ bfg_prompt_segment_ssh() {
         PROMPT+="$ICON_CHEVRON_RIGHT"
         PROMPT+="$FG_COLOR_BLACK "
         PROMPT+="$ICON_NETWORK "
-        PROMPT+=$'\h '
+        if [ -z "$BFG_OVERRIDE_HOSTNAME" ]; then
+            PROMPT+=$'\h '
+        else
+            PROMPT+="$BFG_OVERRIDE_HOSTNAME "
+        fi
         PROMPT+="$FG_COLOR_BRIGHT_GREY"
     fi
 }
