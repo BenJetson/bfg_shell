@@ -62,7 +62,15 @@ ALL_COLOR_RESET=$(bfg_escape $'\033[0m')
 BOLD_ON=$(bfg_escape $'\033[1m')
 BOLD_OFF=$(bfg_escape $'\033[22m')
 
-COLOR_ENDLINE=$(bfg_escape $'\033[K')
+# XXX This solved a problem at one point, but is causing mangled history on new
+# machines. What this does, according to the manual, is "erase to end of line"
+# in bash. When pressing the up arrow to reveal a multi-line history entry, this
+# erases everything on the same line after the prompt.
+#
+# Disabling for now, but leaving this here for future reference.
+#
+# COLOR_ENDLINE=$(bfg_escape $'\033[K')
+COLOR_ENDLINE=""
 
 # load minpath
 bfg_source "minpath"
