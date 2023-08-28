@@ -3,6 +3,17 @@
 # Disable right prompt spacing.
 export ZLE_RPROMPT_INDENT=0
 
+
+
+## End Color Helper ##
+# XXX See notes in prompt.sh about COLOR_ENDLINE.
+# In ZSH, this seems to cause issues with the RPROMPT when unset.
+# When this is not set, colors in RPROMPT streak the screen on SIGWINCH.
+ZSH_COLOR_ENDLINE=$(bfg_escape $'\033[K')
+bfg_set_prompt_color_endl() {
+    PROMPT+="$ZSH_COLOR_ENDLINE"
+}
+
 ## Command Timer Helper ##
 
 bfg_command_timer() {
@@ -104,7 +115,7 @@ bfg_set_rprompt() {
 ## Initialization ##
 
 # On initialization, add BFG functions to precmd, if not already present.
-bfg_precmds=( bfg_set_prompt bfg_set_rprompt )
+bfg_precmds=( bfg_set_prompt bfg_set_prompt_color_endl bfg_set_rprompt )
 for target in "${bfg_precmds[@]}"; do
     should_add=1
     if [ ${#precmd_functions[@]} -gt 0 ]; then

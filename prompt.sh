@@ -69,6 +69,9 @@ BOLD_OFF=$(bfg_escape $'\033[22m')
 #
 # Disabling for now, but leaving this here for future reference.
 #
+# XXX seems like this was important to ZSH, but not bash?
+# Adding this back for ZSH in prompt_zsh.sh.
+#
 # COLOR_ENDLINE=$(bfg_escape $'\033[K')
 COLOR_ENDLINE=""
 
@@ -145,7 +148,7 @@ fi
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
-    if [ "$EUID" -ne 0 ]; then # if effective user ID is NOT root
+    if [ "$EUID" -ne 0 ] || [ "$SUDO_UID" ]; then # if effective user ID is NOT root
         PROMPT+="$HEAD_FG_COLOR$HEAD_BG_COLOR"
         PROMPT+=" $HEAD_ICON "
         PROMPT+="$HEAD_END_COLOR"
