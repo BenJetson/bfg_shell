@@ -55,7 +55,6 @@ if [ "$(uname)" = "Darwin" ]; then
         set -e
         xcode-select -p
 
-
         sudo xcodebuild -license accept
         sudo xcodebuild -runFirstLaunch
 
