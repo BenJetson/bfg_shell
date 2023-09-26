@@ -49,6 +49,9 @@ alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
 # XCode update helper. Runs in subshell, since function block is () not {}.
 xcfix () (
     set -x
+    xcode-select --install
+    xcode-select -p
+
     set -e
 
     sudo xcodebuild -license accept
