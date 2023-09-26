@@ -50,9 +50,10 @@ alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
 xcfix () (
     set -x
     xcode-select --install
-    xcode-select -p
 
     set -e
+    xcode-select -p
+
 
     sudo xcodebuild -license accept
     sudo xcodebuild -runFirstLaunch
