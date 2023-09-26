@@ -45,3 +45,16 @@ alias gsts='git stash save'
 
 # iCloud Helper
 alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
+
+# XCode update helper. Runs in subshell, since function block is () not {}.
+xcfix () (
+    set -x
+    set -e
+
+    sudo xcodebuild -license accept
+    sudo xcodebuild -runFirstLaunch
+
+    sudo -k
+
+    xcodebuild -runFirstLaunch
+)
