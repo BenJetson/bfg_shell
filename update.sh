@@ -37,16 +37,17 @@ bfg_update() {
         echo "Local is at #$LOCAL_COMMIT_COUNT (hash $CURRENT_COMMIT_HASH)."
         echo "Remote is at #$REMOTE_COMMIT_COUNT (hash $NEW_COMMIT_HASH)."
         echo
-        echo "You can see a diff of the changes and list of commits here:"
-        printf "https://github.com/BenJetson/bfg_shell/compare/%s...%s\n" \
-            "$CURRENT_COMMIT_HASH" "$NEW_COMMIT_HASH"
-        echo
 
         if [ ! "$REMOTE_COMMIT_COUNT" -gt "$LOCAL_COMMIT_COUNT" ]; then
             echo "No update is available."
             echo
             return 1
         fi
+
+        echo "You can see a diff of the changes and list of commits here:"
+        printf "https://github.com/BenJetson/bfg_shell/compare/%s...%s\n" \
+            "$CURRENT_COMMIT_HASH" "$NEW_COMMIT_HASH"
+        echo
 
         while true; do
             printf "Would you like to update? [y/n]: "
