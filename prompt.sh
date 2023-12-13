@@ -31,9 +31,10 @@ FG_COLOR_BRIGHT_GREY=$(bfg_escape $'\033[38;5;250m')
 # FG_COLOR_BRIGHT_BLUE=$(bfg_escape $'\033[94m')
 # FG_COLOR_BRIGHT_MAGENTA=$(bfg_escape $'\033[95m')
 # FG_COLOR_BRIGHT_CYAN=$(bfg_escape $'\033[96m')
-# FG_COLOR_BRIGHT_WHITE=$(bfg_escape $'\033[97m')
+FG_COLOR_BRIGHT_WHITE=$(bfg_escape $'\033[97m')
 FG_COLOR_ORANGE=$(bfg_escape $'\033[38;5;202m')
 FG_COLOR_RASPBERRY=$(bfg_escape $'\033[38;5;161m')
+FG_COLOR_DARK_GREY=$(bfg_escape $'\033[38;5;239m')
 
 # BG_COLOR_BLACK=$(bfg_escape $'\033[40m')
 BG_COLOR_RED=$(bfg_escape $'\033[41m')
@@ -42,7 +43,7 @@ BG_COLOR_YELLOW=$(bfg_escape $'\033[43m')
 BG_COLOR_BLUE=$(bfg_escape $'\033[44m')
 # BG_COLOR_MAGENTA=$(bfg_escape $'\033[45m')
 # BG_COLOR_CYAN=$(bfg_escape $'\033[46m')
-BG_COLOR_WHITE=$(bfg_escape $'\033[47m')
+#BG_COLOR_WHITE=$(bfg_escape $'\033[47m')
 BG_COLOR_BRIGHT_BLACK=$(bfg_escape $'\033[100m')
 BG_COLOR_BRIGHT_GREY=$(bfg_escape $'\033[48;5;250m')
 # BG_COLOR_BRIGHT_RED=$(bfg_escape $'\033[101m')
@@ -54,6 +55,7 @@ BG_COLOR_BRIGHT_GREY=$(bfg_escape $'\033[48;5;250m')
 # BG_COLOR_BRIGHT_WHITE=$(bfg_escape $'\033[107m')
 BG_COLOR_ORANGE=$(bfg_escape $'\033[48;5;202m')
 BG_COLOR_RASPBERRY=$(bfg_escape $'\033[48;5;161m')
+BG_COLOR_DARK_GREY=$(bfg_escape $'\033[48;5;239m')
 
 
 # FG_COLOR_RESET=$(bfg_escape $'\033[39m')
@@ -132,9 +134,9 @@ if [ -f /etc/rpi-issue ]; then
 else
     case "$(uname)" in
         'Darwin')
-            HEAD_FG_COLOR="$FG_COLOR_BLACK"
-            HEAD_BG_COLOR="$BG_COLOR_WHITE"
-            HEAD_END_COLOR="$FG_COLOR_WHITE"
+            HEAD_FG_COLOR="$FG_COLOR_BRIGHT_WHITE"
+            HEAD_BG_COLOR="$BG_COLOR_DARK_GREY"
+            HEAD_END_COLOR="$FG_COLOR_DARK_GREY"
             HEAD_ICON="$ICON_APPLE"
             ;;
         'Linux')
