@@ -15,9 +15,8 @@ FG_COLOR_PACIFIC_BLUE=$(bfg_escape $'\033[38;5;27m')
 BG_COLOR_PURPLE=$(bfg_escape $'\033[48;5;54m')
 BG_COLOR_PACIFIC_BLUE=$(bfg_escape $'\033[48;5;27m')
 
-
-if [[ "$(hostname)" == *".palmetto."* ]]; then
-    case "$(hostname)" in
+if [[ "$(hostname -f)" == *".palmetto."* ]]; then
+    case "$(hostname -f)" in
         node*)
             HEAD_FG_COLOR="$FG_COLOR_ORANGE";
             HEAD_BG_COLOR="$BG_COLOR_BRIGHT_BLACK";
@@ -44,8 +43,8 @@ if [[ "$(hostname)" == *".palmetto."* ]]; then
             HEAD_ICON="$ICON_PALM_TREE";
             ;;
     esac
-elif [[ "$(hostname)" == *".rcd."* ]]; then
-    case "$(hostname)" in
+elif [[ "$(hostname -f)" == *".rcd."* ]]; then
+    case "$(hostname -f)" in
         docs*)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
             HEAD_BG_COLOR="$BG_COLOR_PURPLE";
@@ -59,8 +58,8 @@ elif [[ "$(hostname)" == *".rcd."* ]]; then
             HEAD_ICON="$ICON_TEST_TUBE"
             ;;
     esac
-elif [[ "$(hostname)" == *".server."* ]]; then
-    case "$(hostname)" in
+elif [[ "$(hostname -f)" == *".server."* ]]; then
+    case "$(hostname -f)" in
         *atl*)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
             HEAD_BG_COLOR="$BG_COLOR_PACIFIC_BLUE";
