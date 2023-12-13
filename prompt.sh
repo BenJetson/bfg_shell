@@ -13,6 +13,7 @@ export GIT_PS1_STATESEPARATOR=" "
 
 ## Color Variables ##
 # These are calculated once at source time to accelerate prompt handlers.
+# https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 
 FG_COLOR_BLACK=$(bfg_escape $'\033[30m')
 FG_COLOR_RED=$(bfg_escape $'\033[31m')
