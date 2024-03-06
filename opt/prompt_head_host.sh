@@ -45,7 +45,7 @@ if [[ "$(hostname -f)" == *".palmetto."* ]]; then
     esac
 elif [[ "$(hostname -f)" == *".rcd."* ]]; then
     case "$(hostname -f)" in
-        docs*)
+        *docs*)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
             HEAD_BG_COLOR="$BG_COLOR_PURPLE";
             HEAD_END_COLOR="$FG_COLOR_PURPLE";
