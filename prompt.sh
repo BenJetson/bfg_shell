@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source Git Prompt defiinitions
-bfg_source "vendor/git-prompt"
+bfg_source "vendor/git-prompt/git-prompt"
 
 # Configure Git Prompt.
 export GIT_PS1_SHOWUPSTREAM="verbose"
