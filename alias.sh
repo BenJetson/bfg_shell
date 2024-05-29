@@ -46,6 +46,29 @@ alias gsts='git stash save'
 # iCloud Helper
 alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
 
+unknown_host () {
+    if [ "$#" -ne 1 ]; then
+        echo "<!> ERROR: Expected one positional argument: line number." 1>&2
+        return 1
+    elif ! [ -f ~/.ssh/known_hosts ]; then
+        echo "<!> ERROR: no ~/.ssh/known_hosts file." 1>&2
+        return 1
+    elif [ "$(wc -l < ~/.ssh/known_hosts)" -lt "$1" ]; then
+        echo "<!> ERROR: invalid line number." 1>&2
+        return 1
+    fi
+
+    echo "This will delete line $1 from your ~/.ssh/known_hosts file."
+    echo
+    echo "Contents of line $1:"
+    sed "$1q;d" ~/.ssh/known_hosts
+    echo
+    echo "Press return to confirm deletion or ^C to cancel."
+    read -r
+
+    sed -i "$1d" ~/.ssh/known_hosts
+}
+
 # XCode update helper. Runs in subshell, since function block is () not {}.
 if [ "$(uname)" = "Darwin" ]; then
     xcfix () (
