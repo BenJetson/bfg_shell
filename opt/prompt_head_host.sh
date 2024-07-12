@@ -36,6 +36,12 @@ if [[ "$(hostname -f)" == *".palmetto."* ]]; then
             HEAD_END_COLOR="$FG_COLOR_GREEN";
             HEAD_ICON="$ICON_UPLOAD";
             ;;
+        *docs*)
+            HEAD_FG_COLOR="$FG_COLOR_WHITE";
+            HEAD_BG_COLOR="$BG_COLOR_PURPLE";
+            HEAD_END_COLOR="$FG_COLOR_PURPLE";
+            HEAD_ICON="$ICON_BOOK";
+            ;;
         *)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
             HEAD_BG_COLOR="$BG_COLOR_PURPLE";
