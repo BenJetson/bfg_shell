@@ -19,7 +19,10 @@ alias mv='mv -i'
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
+alias lh='ls -h'
 alias lla='ls -la'
+alias llh='ls -lh'
+alias llha='ls -lha'
 
 # Git Aliases
 alias gs='git status'
