@@ -151,7 +151,7 @@ fi
 ## Left Prompt Segments ##
 
 bfg_prompt_segment_head() {
-    if [ "$EUID" -ne 0 ] || [ "$SUDO_UID" ]; then # if effective user ID is NOT root
+    if [ -n "${BFG_DISABLE_ROOT_HEAD+1}" ] || [ "$EUID" -ne 0 ] || [ "$SUDO_UID" ]; then # if effective user ID is NOT root
         PROMPT+="$HEAD_FG_COLOR$HEAD_BG_COLOR"
         PROMPT+=" $HEAD_ICON "
         PROMPT+="$HEAD_END_COLOR"
