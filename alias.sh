@@ -5,6 +5,11 @@
 alias edit="\$EDITOR"
 alias sudoedit="sudo -e"
 
+# Conditionally alias vi to vim, if vim exists.
+if command -v vim >/dev/null 2>&1; then
+    alias vi='vim'
+fi
+
 # Prompt before removing or overwriting files with common commands.
 alias rm='rm -i'
 alias cp='cp -i'
