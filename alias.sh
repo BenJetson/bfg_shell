@@ -49,8 +49,11 @@ alias gstp='git stash pop'
 alias gsts='git stash save'
 
 # iCloud Helper
-alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
+if [ "$(uname)" = "Darwin" ]; then
+    alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
+fi
 
+# SSH known hosts helper - forget hosts by name
 unknown_host () {
     if [ "$#" -ne 1 ]; then
         echo "<!> ERROR: Expected one positional argument: line number." 1>&2
