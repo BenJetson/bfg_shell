@@ -199,8 +199,10 @@ bfg_prompt_segment_directory() {
     PROMPT+="$BOLD_ON "
     if [ "${BFG_SHELL_PROMPT_MINPATH:-0}" -eq 1 ]; then
         bfg_minpath
-    else
+    elif [ -n "$BASH_VERSION" ]; then
         PROMPT+=$'\w'
+    else
+        PROMPT+=$'%~'
     fi
     PROMPT+="$BOLD_OFF "
 

@@ -109,7 +109,7 @@ bfg_set_rprompt() {
     bfg_rprompt_segment_clock
 
     # Reset colors after right prompt.
-    RPROMPT+=$'%k%f'
+    RPROMPT+=$' %k%f'
 }
 
 ## Initialization ##

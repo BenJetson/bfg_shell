@@ -80,7 +80,12 @@ unknown_host () {
     echo "Press return to confirm deletion or ^C to cancel."
     read -r
 
-    sed -i "$1d" ~/.ssh/known_hosts
+    if [ "$(uname)" = "Darwin" ]; then
+        sed -i .bak "$1d" ~/.ssh/known_hosts
+        rm -i ~/.ssh/known_hosts.bak
+    else
+        sed -i "$1d" ~/.ssh/known_hosts
+    fi
 }
 
 # XCode update helper. Runs in subshell, since function block is () not {}.
