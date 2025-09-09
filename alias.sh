@@ -51,6 +51,9 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 
+# Tmux shortcut.
+alias imux="tmux -CC"
+
 # iCloud Helper
 if [ "$(uname)" = "Darwin" ]; then
     alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
