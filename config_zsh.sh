@@ -44,7 +44,7 @@ then
     # to FPATH. If these are missing, you can run:
     #     docker completion zsh > ~/.docker/completions/_docker
     # See also: https://docs.docker.com/engine/cli/completion/
-    if [ -f "$HOME/.docker/completions" ]; then
+    if [ -d "$HOME/.docker/completions" ]; then
         FPATH="$HOME/.docker/completions:$FPATH"
     fi
 
