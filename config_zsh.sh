@@ -40,6 +40,14 @@ then
     bindkey "^[[A" history-beginning-search-backward-end
     bindkey "^[[B" history-beginning-search-forward-end
 
+    # Detect when Docker completions have been added to the system and add them
+    # to FPATH. If these are missing, you can run:
+    #     docker completion zsh > ~/.docker/completions/_docker
+    # See also: https://docs.docker.com/engine/cli/completion/
+    if [ -f "$HOME/.docker/completions" ]; then
+        FPATH="$HOME/.docker/completions:$FPATH"
+    fi
+
     # Load complist module.
     # This should be loaded before compinit so it can populate menu style.
     # https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcomplist-Module
