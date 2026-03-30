@@ -1,9 +1,14 @@
 #!/bin/bash
 
 # Basic Editor Commands
-# Not sure why Apple doesn't include these editor commands.
 alias edit="\$EDITOR"
-alias sudoedit="sudo -e"
+
+# If sudoedit doesn't exist, but sudo does, then add an alias.
+if ! command -v sudoedit >/dev/null 2>&1; then
+    if command -v sudo >/dev/null 2>&1; then
+        alias sudoedit="sudo -e"
+    fi
+fi
 
 # Conditionally alias vi to vim, if vim exists.
 if command -v vim >/dev/null 2>&1; then
@@ -51,13 +56,8 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 
-# Tmux shortcut.
+# Tmux shortcut for iTerm2 integration.
 alias imux="tmux -CC"
-
-# iCloud Helper
-if [ "$(uname)" = "Darwin" ]; then
-    alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
-fi
 
 # SSH known hosts helper - forget hosts by name
 unknown_host () {
@@ -88,8 +88,16 @@ unknown_host () {
     fi
 }
 
-# XCode update helper. Runs in subshell, since function block is () not {}.
+# A few things specific to macOS.
 if [ "$(uname)" = "Darwin" ]; then
+    # iCloud helper.
+    alias cdicloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
+
+    # Clipboard helpers.
+    alias pbc='pbcopy'
+    alias pbp='pbpaste'
+
+    # XCode update helper. Runs in subshell, since function block is () not {}.
     xcfix () (
         set -x
         xcode-select --install
