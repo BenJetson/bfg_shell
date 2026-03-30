@@ -113,3 +113,10 @@ if [ "$(uname)" = "Darwin" ]; then
         xcodebuild -runFirstLaunch
     )
 fi
+
+# If pbcopy isn't available, alias to iTerm2's copy utility. You'll need to load
+# it2copy using opt/it2_utilities_loader in your local config.
+if ! command -v pbcopy >/dev/null 2>&1; then
+    alias pbcopy='it2copy'
+    alias pbc='it2copy'
+fi
