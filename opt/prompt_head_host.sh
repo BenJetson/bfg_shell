@@ -2,7 +2,7 @@
 
 ICON_PALM_TREE="$(bfg_get_icon "f1055")"
 ICON_ROCKY="$(bfg_get_icon "f32b")"
-ICON_KEY="$(bfg_get_icon "eb11")"
+ICON_KEY="$(bfg_get_icon "f084")"
 ICON_UPLOAD="$(bfg_get_icon "f0737")"
 ICON_ATLASSIAN="$(bfg_get_icon "f0804")"
 ICON_PAW="$(bfg_get_icon "f03e9")"
