@@ -2,6 +2,7 @@
 
 ICON_PALM_TREE="$(bfg_get_icon "f1055")"
 ICON_ROCKY="$(bfg_get_icon "f32b")"
+ICON_KEY="$(bfg_get_icon "eb11")"
 ICON_UPLOAD="$(bfg_get_icon "f0737")"
 ICON_ATLASSIAN="$(bfg_get_icon "f0804")"
 ICON_PAW="$(bfg_get_icon "f03e9")"
@@ -28,6 +29,12 @@ if [[ "$(hostname -f)" == *".palmetto."* ]]; then
             HEAD_BG_COLOR="$BG_COLOR_ORANGE";
             HEAD_END_COLOR="$FG_COLOR_ORANGE";
             HEAD_ICON="$ICON_CROWN";
+            ;;
+        *login*)
+            HEAD_FG_COLOR="$FG_COLOR_WHITE";
+            HEAD_BG_COLOR="$BG_COLOR_PURPLE";
+            HEAD_END_COLOR="$FG_COLOR_PURPLE";
+            HEAD_ICON="$ICON_KEY";
             ;;
         *)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
