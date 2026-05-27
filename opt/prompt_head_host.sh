@@ -38,7 +38,7 @@ if [[ "$(hostname -f)" == *".palmetto."* ]]; then
     esac
 elif [[ "$(hostname -f)" == *".rcd."* ]]; then
     case "$(hostname -f)" in
-        hpcdtn*)
+        *dtn*)
             HEAD_FG_COLOR="$FG_COLOR_BLACK";
             HEAD_BG_COLOR="$BG_COLOR_GREEN";
             HEAD_END_COLOR="$FG_COLOR_GREEN";
