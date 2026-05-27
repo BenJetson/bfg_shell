@@ -92,4 +92,14 @@ then
     set -o completeinword # do completion in this middle of words
     set -o longlistjobs # print jobs list in long format
     set -o sharehistory # share history between windows
+
+    # Bind autocomplete for dcd function, if loaded.
+    if command -v dcd >/dev/null 2>&1; then
+        compdef _dcd dcd
+    fi
+
+    # Bind autocomplete for dcode function, if loaded.
+    if command -v dcode >/dev/null 2>&1; then
+        compdef _dcode dcode
+    fi
 fi
