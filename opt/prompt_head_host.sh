@@ -6,7 +6,6 @@ ICON_UPLOAD="$(bfg_get_icon "f093")"
 ICON_ATLASSIAN="$(bfg_get_icon "f0804")"
 ICON_PAW="$(bfg_get_icon "f03e9")"
 ICON_TEST_TUBE="$(bfg_get_icon "f0668")"
-ICON_BOOK="$(bfg_get_icon "f02d")"
 ICON_CROWN="$(bfg_get_icon "f01a5")"
 
 FG_COLOR_PURPLE=$(bfg_escape $'\033[38;5;54m')
@@ -30,18 +29,6 @@ if [[ "$(hostname -f)" == *".palmetto."* ]]; then
             HEAD_END_COLOR="$FG_COLOR_ORANGE";
             HEAD_ICON="$ICON_CROWN";
             ;;
-        hpcdtn*)
-            HEAD_FG_COLOR="$FG_COLOR_BLACK";
-            HEAD_BG_COLOR="$BG_COLOR_GREEN";
-            HEAD_END_COLOR="$FG_COLOR_GREEN";
-            HEAD_ICON="$ICON_UPLOAD";
-            ;;
-        *docs*)
-            HEAD_FG_COLOR="$FG_COLOR_WHITE";
-            HEAD_BG_COLOR="$BG_COLOR_PURPLE";
-            HEAD_END_COLOR="$FG_COLOR_PURPLE";
-            HEAD_ICON="$ICON_BOOK";
-            ;;
         *)
             HEAD_FG_COLOR="$FG_COLOR_WHITE";
             HEAD_BG_COLOR="$BG_COLOR_PURPLE";
@@ -51,11 +38,11 @@ if [[ "$(hostname -f)" == *".palmetto."* ]]; then
     esac
 elif [[ "$(hostname -f)" == *".rcd."* ]]; then
     case "$(hostname -f)" in
-        *docs*)
-            HEAD_FG_COLOR="$FG_COLOR_WHITE";
-            HEAD_BG_COLOR="$BG_COLOR_PURPLE";
-            HEAD_END_COLOR="$FG_COLOR_PURPLE";
-            HEAD_ICON="$ICON_BOOK";
+        hpcdtn*)
+            HEAD_FG_COLOR="$FG_COLOR_BLACK";
+            HEAD_BG_COLOR="$BG_COLOR_GREEN";
+            HEAD_END_COLOR="$FG_COLOR_GREEN";
+            HEAD_ICON="$ICON_UPLOAD";
             ;;
         *)
             HEAD_FG_COLOR="$FG_COLOR_BRIGHT_BLACK";
