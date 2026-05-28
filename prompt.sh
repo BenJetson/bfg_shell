@@ -20,6 +20,7 @@ FG_COLOR_RED=$(bfg_escape $'\033[31m')
 FG_COLOR_GREEN=$(bfg_escape $'\033[32m')
 FG_COLOR_YELLOW=$(bfg_escape $'\033[33m')
 FG_COLOR_BLUE=$(bfg_escape $'\033[34m')
+FG_COLOR_DOCKER=$(bfg_escape $'\033[38;5;27m')
 # FG_COLOR_MAGENTA=$(bfg_escape $'\033[35m')
 # FG_COLOR_CYAN=$(bfg_escape $'\033[36m')
 FG_COLOR_WHITE=$(bfg_escape $'\033[37m')
@@ -41,6 +42,7 @@ BG_COLOR_RED=$(bfg_escape $'\033[41m')
 BG_COLOR_GREEN=$(bfg_escape $'\033[42m')
 BG_COLOR_YELLOW=$(bfg_escape $'\033[43m')
 BG_COLOR_BLUE=$(bfg_escape $'\033[44m')
+BG_COLOR_DOCKER=$(bfg_escape $'\033[48;5;27m')
 # BG_COLOR_MAGENTA=$(bfg_escape $'\033[45m')
 # BG_COLOR_CYAN=$(bfg_escape $'\033[46m')
 #BG_COLOR_WHITE=$(bfg_escape $'\033[47m')
@@ -110,6 +112,7 @@ ICON_CHEVRON_RIGHT="$(bfg_get_icon "e0b0")"
 ICON_APPLE="$(bfg_get_icon "f179")"
 ICON_UBUNTU="$(bfg_get_icon "f31b")"
 ICON_RASPI="$(bfg_get_icon "f315")"
+ICON_DOCKER="$(bfg_get_icon "f21f")"
 ICON_CONSOLE="$(bfg_get_icon "fcb5")"
 ICON_SHIELD="$(bfg_get_icon "f49c")"
 ICON_LOCK="$(bfg_get_icon "f023")"
@@ -247,6 +250,44 @@ bfg_prompt_segment_git() {
     fi
 }
 
+bfg_prompt_segment_docker() {
+    # The goal of this segment is to alert me when a REMOTE docker context is in
+    # use, rather than hitting my local Docker daemon.
+
+    # If docker is not available, then skip this segment.
+    if ! which docker >/dev/null 2>&1; then
+        return 0
+    fi
+
+    # Retrieve current context from docker CLI.
+    docker_context="$(docker context show)"
+
+    # When DOCKER_HOST is set, it will override the context, but leave the
+    # context listed as default, so we will override that here.
+    # We only care about remote cases (ssh or tcp protocols), not unix sockets.
+    # For easier reading, we'll strip the protocol prefix and place an = at the
+    # beginning to show it was from the environment.
+    case "${DOCKER_HOST:-}" in
+        ssh://*) docker_context="=${DOCKER_HOST#ssh://}";;
+        tcp://*) docker_context="=${DOCKER_HOST#tcp://}";;
+    esac
+
+    # After determining the context, ignore some cases.
+    case "$docker_context" in
+        default) return 0;; # defaults to this machine; not a remote.
+        colima) return 0;; # local vm for docker on macOS; not a remote.
+    esac
+
+    # If we made it this far, we've got a remote docker context active and need
+    # to show the segment.
+    PROMPT+="$BG_COLOR_DOCKER"
+    PROMPT+="$ICON_CHEVRON_RIGHT"
+    PROMPT+="$FG_COLOR_WHITE"
+    PROMPT+=" $ICON_DOCKER "
+    PROMPT+="$docker_context "
+    PROMPT+="$FG_COLOR_DOCKER"
+}
+
 ## Left Prompt Handler ##
 
 bfg_set_prompt() {
@@ -257,6 +298,7 @@ bfg_set_prompt() {
     bfg_prompt_segment_head
     bfg_prompt_segment_ssh
     bfg_prompt_segment_directory
+    bfg_prompt_segment_docker
     bfg_prompt_segment_git
 
     # Reset colors after prompt, add final chevron.
