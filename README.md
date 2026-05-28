@@ -7,17 +7,16 @@
 This repository contains my personal shell settings, prompt, and other
 customizations.
 
-It is intended just to be for my own personal use, but is available to you
-under the terms of the [license agreement](./LICENSE) if you would like to use
-or copy this project.
+It is intended just to be for my own personal use, but is available to you under
+the terms of the [license agreement](./LICENSE) if you would like to use or copy
+this project.
 
 ## Rationale
 
 The goals of this project are to ...
 
-- pull my favorite features from
-  [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) and
-  [powerlevel10k](https://github.com/romkatv/powerlevel10k).
+- pull my favorite features from [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
+  and [powerlevel10k](https://github.com/romkatv/powerlevel10k).
 - **never** make network requests on startup required to render first prompt
   - (prevents the classic problem of hanging `omz update` when you have no
     network connection)
@@ -51,11 +50,11 @@ Then simply follow the prompts and restart your shell when you are done.
 The following optional parameters are available for the installer, which may be
 passed as environment variables:
 
-- `BFG_SHELL_HOME` - where you would like the installer to place or use the
-  BFG Shell repository on disk. Defaults to `~/.bfg_shell` if unset.
-- `BFG_SHELL_NO_CLONE` - if set, then the installer will not clone the
-  BFG Shell repository and instead attempt to use the existing install located
-  at `BFG_SHELL_HOME`.
+- `BFG_SHELL_HOME` - where you would like the installer to place or use the BFG
+  Shell repository on disk. Defaults to `~/.bfg_shell` if unset.
+- `BFG_SHELL_NO_CLONE` - if set, then the installer will not clone the BFG Shell
+  repository and instead attempt to use the existing install located at
+  `BFG_SHELL_HOME`.
 - `BFG_SHELL_CLONE_HTTPS` - if set, the installer will clone the repository
   using an HTTPS connection. Defaults to unset; will use SSH connection.
 
