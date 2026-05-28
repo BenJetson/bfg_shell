@@ -11,7 +11,6 @@ then
     shopt -s cdspell # automatically correct small errors in names with cd
     shopt -s interactive_comments # allow comments in interactive shell
 
-
     # Smarter Tab Completion
     bind "set completion-ignore-case on"
     bind "set show-all-if-ambiguous on"
