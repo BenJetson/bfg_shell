@@ -16,10 +16,11 @@ then
     bind "set completion-ignore-case on"
     bind "set show-all-if-ambiguous on"
 
-    # Menu Tab Completion
-    bind "TAB:menu-complete"
-    bind "set show-all-if-ambiguous on"
-    bind "set menu-complete-display-prefix on"
+    # Menu Tab Completion (supported on bash 4+)
+    if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
+        bind "TAB:menu-complete"
+        bind "set menu-complete-display-prefix on"
+    fi
 
     # History Search
     bind '"\e[A": history-search-backward'
