@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # If the Developer directory exists in $HOME, load helpers.
-if [ -d "$HOME/Developer" ]; then
+if [ -d "$DEVELOPER_DIR" ]; then
     # Shared autocomplete handler for ~/Developer directory helpers.
     _developer_dir_completion() {
         local DIR
@@ -10,14 +10,14 @@ if [ -d "$HOME/Developer" ]; then
 
         if [[ "$PREFIX" == */* ]]; then
             # If a slash is present, suggest deeper completions.
-            for DIR in "$HOME"/Developer/$PREFIX*; do
+            for DIR in "$DEVELOPER_DIR/$PREFIX"*; do
                 if [ -d "$DIR" ]; then
-                    COMPREPLY+=("${DIR#$HOME/Developer/}")
+                    COMPREPLY+=("${DIR#$DEVELOPER_DIR/}")
                 fi
             done
         else
             # Otherwise, only offer immediate subdirectories of ~/Developer that match.
-            for DIR in "$HOME"/Developer/$PREFIX*; do
+            for DIR in "$DEVELOPER_DIR/$PREFIX"*; do
                 if [ -d "$DIR" ]; then
                     COMPREPLY+=("${DIR##*/}")
                 fi

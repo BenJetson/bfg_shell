@@ -92,12 +92,4 @@ then
     set -o completeinword # do completion in this middle of words
     set -o longlistjobs # print jobs list in long format
     set -o sharehistory # share history between windows
-
-    # Bind autocomplete for developer directory helpers, if needed.
-    if [ -d "$HOME/Developer" ]; then
-        compdef _developer_dir_completion dcd
-        if command -v code >/dev/null 2>&1; then
-            compdef _developer_dir_completion dcode
-        fi
-    fi
 fi

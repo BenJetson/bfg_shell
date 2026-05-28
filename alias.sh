@@ -59,41 +59,6 @@ alias gsts='git stash save'
 # Tmux shortcut for iTerm2 integration.
 alias imux="tmux -CC"
 
-# If the Developer directory exists in $HOME, load helpers.
-if [ -d "$HOME/Developer" ]; then
-    # Change directory helper for ~/Developer.
-    dcd() {
-        # No arguments should result in just entering the developer dir itself.
-        local target="$HOME/Developer/$1"
-        if [ "$#" -gt 1 ]; then
-            echo "<!> ERROR: Too many arguments." >&2
-            return 1
-        elif [ ! -d "$target" ]; then
-            echo "<!> ERROR: $target does not exist." >&2
-            return 1
-        fi
-        cd "$target" || return 1
-    }
-
-    # VSCode launcher helper for ~/Developer, loaded if code command exists.
-    if command -v code >/dev/null 2>&1; then
-        dcode() {
-            local target="$HOME/Developer/$1"
-            if [ "$#" -lt 1 ]; then
-                echo "<!> ERROR: Must specify developer directory to open." >&2
-                return 1
-            elif [ "$#" -gt 1 ]; then
-                echo "<!> ERROR: Too many arguments." >&2
-                return 1
-            elif [ ! -d "$target" ]; then
-                echo "<!> ERROR: $target does not exist." >&2
-                return 1
-            fi
-            code "$target" || return 1
-        }
-    fi
-fi
-
 # SSH known hosts helper - forget hosts by name
 unknown_host () {
     if [ "$#" -ne 1 ]; then
