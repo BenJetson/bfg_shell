@@ -29,7 +29,7 @@ The goals of this project are to ...
 
 ## Supported Shells
 
-Supports `zsh` and `bash`.
+Supports `zsh` and `bash`[^1].
 
 ## Getting Started
 
@@ -87,3 +87,15 @@ actions that may be irreversible.
 # For Bash or Zsh
 bfg_run uninstall
 ```
+
+<!-- Footnotes -->
+
+[^1]:
+    For `bash`, this project must support
+    [`bash` version 3](https://web.archive.org/web/20080525045607/http://www.gnu.org/software/bash/manual/bashref.html),
+    thanks to the fact that
+    [macOS will never update `bash`](https://apple.stackexchange.com/q/208312)
+    and I occasionally still use `bash` on macOS. However, the goal is only to
+    maintain compatibility so far as it does not break or cause errors in `bash`
+    version 3; taking advantage of new features in `bash` versions 4+ (like
+    better menu completion) is allowed.
