@@ -40,10 +40,6 @@ then
     bindkey "^[[A" history-beginning-search-backward-end
     bindkey "^[[B" history-beginning-search-forward-end
 
-    # Add BFG Shell completions.
-    FPATH="$BFG_SHELL_HOME/completions/zsh:$FPATH"
-    FPATH="$BFG_SHELL_HOME/local/completions/zsh:$FPATH"
-
     # Load complist module.
     # This should be loaded before compinit so it can populate menu style.
     # https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcomplist-Module
