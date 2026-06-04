@@ -60,7 +60,8 @@ then
 
     # Cache autocomplete for performance.
     zstyle ':completion:*' use-cache on
-    zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+    zstyle ':completion:*' cache-path \
+        "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcache"
 
     # Use tab menu for autocomplete.
     zstyle ':completion:*' menu select
