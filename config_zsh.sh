@@ -40,14 +40,6 @@ then
     bindkey "^[[A" history-beginning-search-backward-end
     bindkey "^[[B" history-beginning-search-forward-end
 
-    # Detect when Docker completions have been added to the system and add them
-    # to FPATH. If these are missing, you can run:
-    #     docker completion zsh > ~/.docker/completions/_docker
-    # See also: https://docs.docker.com/engine/cli/completion/
-    if [ -d "$HOME/.docker/completions" ]; then
-        FPATH="$HOME/.docker/completions:$FPATH"
-    fi
-
     # Add BFG Shell completions.
     FPATH="$BFG_SHELL_HOME/completions/zsh:$FPATH"
     FPATH="$BFG_SHELL_HOME/local/completions/zsh:$FPATH"
