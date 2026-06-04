@@ -48,6 +48,10 @@ then
         FPATH="$HOME/.docker/completions:$FPATH"
     fi
 
+    # Add BFG Shell completions.
+    FPATH="$BFG_SHELL_HOME/completions/zsh:$FPATH"
+    FPATH="$BFG_SHELL_HOME/local/completions/zsh:$FPATH"
+
     # Load complist module.
     # This should be loaded before compinit so it can populate menu style.
     # https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fcomplist-Module
@@ -56,11 +60,8 @@ then
     # Load autocomplete.
     # https://thevaluable.dev/zsh-completion-guide-examples/
     autoload -U compinit
-    # compinit will do some checks to make sure permissions are correct.
-    # Default behavior is to prompt when it finds files with wrong permissions.
-    # Passing -i will make it never use insecure files.
-    # Passing -u will make it use insecure files without warning.
-    compinit -i
+    # We'll call compinit after all other initialization files have been loaded.
+    # See compinit_zsh.sh for details.
 
     # Enable completion extensions.
     zstyle ':completion:*' completer _extensions _complete _approximate

@@ -60,6 +60,8 @@ bfg_init() {
 
     bfg_smart_source "local/alias"
     bfg_smart_source "local/config"
+
+    bfg_smart_source "compinit"
 }
 
 bfg_reload() {

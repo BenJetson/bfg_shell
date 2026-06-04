@@ -36,4 +36,14 @@ then
     export HISTSIZE=10000
     # Control history line count on disk for persistence.
     export HISTFILESIZE=10000
+
+    # Source custom completion scripts.
+    for c in "$BFG_SHELL_HOME"/completions/bash/*; do
+        source "$c"
+    done
+
+    # Source any local completion scripts.
+    for c in "$BFG_SHELL_HOME"/local/completions/bash/*; do
+        source "$c"
+    done
 fi

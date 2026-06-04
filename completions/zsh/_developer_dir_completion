@@ -1,0 +1,13 @@
+#!/bin/bash
+#compdef dcd dcode
+
+# Shared autocomplete handler for Developer directory helpers.
+_developer_dir_completion() {
+    if [[ $PREFIX == */* ]]; then
+        # If a slash is present, suggest deeper completions.
+        _files -W "$DEVELOPER_DIR" -/
+    else
+        # Otherwise, only offer immediate subdirectories of ~/Developer.
+        compadd -Q -S '' -- "$DEVELOPER_DIR"/*(/N:t)
+    fi
+}
