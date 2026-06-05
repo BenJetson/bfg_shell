@@ -42,8 +42,10 @@ then
         source "$c"
     done
 
-    # Source any local completion scripts.
-    for c in "$BFG_SHELL_HOME"/local/completions/bash/*; do
-        source "$c"
-    done
+    # Source any local completion scripts, if present.
+    if [ -n "$(ls -A "$BFG_SHELL_HOME"/local/completions/bash)" ]; then
+        for c in "$BFG_SHELL_HOME"/local/completions/bash/*; do
+            source "$c"
+        done
+    fi
 fi
