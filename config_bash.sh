@@ -43,9 +43,13 @@ then
     done
 
     # Source any local completion scripts, if present.
-    if [ -n "$(ls -A "$BFG_SHELL_HOME"/local/completions/bash)" ]; then
-        for c in "$BFG_SHELL_HOME"/local/completions/bash/*; do
-            source "$c"
-        done
-    fi
+    while IFS= read -r -d '' c; do
+        source "$c"
+    done < <(\
+        find "$BFG_SHELL_HOME"/local/completions/bash \
+            -mindepth 1 \
+            -type f \
+            -not -name .gitkeep \
+            -print0 \
+    )
 fi
