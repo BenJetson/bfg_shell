@@ -1,4 +1,3 @@
-#!/bin/bash
 #compdef dcd dcode
 
 # Shared autocomplete handler for Developer directory helpers.
