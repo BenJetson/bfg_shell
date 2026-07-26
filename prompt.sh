@@ -276,6 +276,7 @@ bfg_prompt_segment_docker() {
     case "$docker_context" in
         default) return 0;; # defaults to this machine; not a remote.
         colima) return 0;; # local vm for docker on macOS; not a remote.
+        desktop-linux) return 0;; # using Docker Desktop on macOS; not a remote.
     esac
 
     # If we made it this far, we've got a remote docker context active and need
