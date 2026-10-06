@@ -218,10 +218,15 @@ bfg_prompt_segment_git() {
         return 0
     fi
 
+    # If this is not a git repository, fail fast.
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        return 0
+    fi
+
     # If the git repository has been configured to be ignored, no segment.
     # Inspired by https://stackoverflow.com/a/29416158.
     #
-    # See matching alias
+    # See matching alias.
     if [[ $(git config prompt.ignore) ]]; then
         return 0
     fi
