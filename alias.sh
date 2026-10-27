@@ -58,6 +58,10 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 
+# Text transformation shortcuts.
+alias tolower="tr '[:upper:]' '[:lower:]'"
+alias toupper="tr '[:lower:]' '[:upper:]'"
+
 # Tmux shortcut for iTerm2 integration.
 alias imux="tmux -CC"
 
