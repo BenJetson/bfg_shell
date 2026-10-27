@@ -35,13 +35,15 @@ Supports `zsh` and `bash`[^1].
 
 Run the installation script for your shell.
 
+**For `bash`:**
+
 ```sh
-# For Bash
 bash <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/scripts/install.sh)
 ```
 
+**For `zsh`:**
+
 ```sh
-# For Zsh
 zsh <(curl -s https://raw.githubusercontent.com/BenJetson/bfg_shell/main/scripts/install.sh)
 ```
 
