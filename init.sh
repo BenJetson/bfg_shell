@@ -92,7 +92,6 @@ bfg_init() {
     if bfg_check_interactive_shell; then
         bfg_smart_source "local/alias"
     fi
-
 }
 
 bfg_reload() {
