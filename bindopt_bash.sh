@@ -49,4 +49,3 @@ done < <(\
         -not -name .gitkeep \
         -print0 \
 )
-f
