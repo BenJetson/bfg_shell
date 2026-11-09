@@ -51,12 +51,10 @@ bfg_init() {
     bfg_check_environment
 
     bfg_smart_source "config"
-    bfg_smart_source "local/config"
 
     # If is interactive shell, load additional components.
     if [[ $- == *i* ]]; then
         bfg_smart_source "alias"
-        bfg_smart_source "local/alias"
 
         bfg_smart_source "func"
         bfg_smart_source "developer"
@@ -71,6 +69,13 @@ bfg_init() {
             bfg_smart_source "compinit"
         fi
     fi
+
+    # Handle local overrides last.
+    bfg_smart_source "local/config"
+    if [[ $- == *i* ]]; then
+        bfg_smart_source "local/alias"
+    fi
+
 }
 
 bfg_reload() {
