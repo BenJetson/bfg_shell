@@ -47,13 +47,30 @@ bfg_smart_source() {
     fi
 }
 
+bfg_check_interactive_shell() {
+    # Checks to see if the current shell's option flags (held in $-) contain the
+    # interactive flag (i).
+    [[ $- == *i* ]]
+}
+
+bfg_check_line_editing_support() {
+    # First, for zsh shells, we will verify whether the Zsh Line Editor (ZLE)
+    # is active.
+    if [ -n "$ZSH_VERSION" ] && [[ -o zle ]]; then
+        return 0
+    fi
+    # Otherwise, check to see if the current shell supports line editing
+    # features by looking to see if the vi or emacs shell options are set.
+    [[ -o emacs ]] || [[ -o vi ]]
+}
+
 bfg_init() {
     bfg_check_environment
 
     bfg_smart_source "config"
 
     # If is interactive shell, load additional components.
-    if [[ $- == *i* ]]; then
+    if bfg_check_interactive_shell; then
         bfg_smart_source "alias"
 
         bfg_smart_source "func"
@@ -64,7 +81,7 @@ bfg_init() {
         bfg_source "update"
 
         # If this shell supports line editing, bind settings and completion.
-        if [[ -o emacs || -o vi ]]; then
+        if bfg_check_line_editing_support; then
             bfg_smart_source "bindopt"
             bfg_smart_source "compinit"
         fi
@@ -72,7 +89,7 @@ bfg_init() {
 
     # Handle local overrides last.
     bfg_smart_source "local/config"
-    if [[ $- == *i* ]]; then
+    if bfg_check_interactive_shell; then
         bfg_smart_source "local/alias"
     fi
 
