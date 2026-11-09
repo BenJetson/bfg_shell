@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # If this shell supports line editing, bind settings. (If interactive shell)
-if [[ "$(set -o | grep 'emacs\|\bvi\b' | cut -f2 | tr '\n' ':')" != 'off:off:' ]]
-then
+if [[ -o emacs || -o vi ]]; then
     # Enable ctrl-x ctrl-e to edit current command.
     autoload -U edit-command-line
     zle -N edit-command-line
