@@ -50,19 +50,27 @@ bfg_smart_source() {
 bfg_init() {
     bfg_check_environment
 
-    bfg_smart_source "alias"
-    bfg_smart_source "func"
     bfg_smart_source "config"
-    bfg_smart_source "bindopt"
-    bfg_smart_source "developer"
-    bfg_smart_source "escape"
-    bfg_smart_source "prompt"
-    bfg_source "update"
-
-    bfg_smart_source "local/alias"
     bfg_smart_source "local/config"
 
-    bfg_smart_source "compinit"
+    # If is interactive shell, load additional components.
+    if [[ $- == *i* ]]; then
+        bfg_smart_source "alias"
+        bfg_smart_source "local/alias"
+
+        bfg_smart_source "func"
+        bfg_smart_source "developer"
+        bfg_smart_source "escape"
+        bfg_smart_source "prompt"
+
+        bfg_source "update"
+
+        # If this shell supports line editing, bind settings and completion.
+        if [[ -o emacs || -o vi ]]; then
+            bfg_smart_source "bindopt"
+            bfg_smart_source "compinit"
+        fi
+    fi
 }
 
 bfg_reload() {

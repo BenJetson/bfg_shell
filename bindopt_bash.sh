@@ -1,54 +1,52 @@
 #!/bin/bash
 
-# If this shell supports line editing, bind settings. (If interactive shell)
-if [[ -o emacs || -o vi ]]; then
-    # Enable some of my favorite shell options.
-    # See available options with shopt -p.
-    set -o noclobber # do not clobber files with redirection without prompt
-    shopt -s histappend # append to history file, not overwrite
-    shopt -s histverify # verify history commands before running them
-    shopt -s cdspell # automatically correct small errors in names with cd
-    shopt -s interactive_comments # allow comments in interactive shell
+# Enable some of my favorite shell options.
+# See available options with shopt -p.
+set -o noclobber # do not clobber files with redirection without prompt
+shopt -s histappend # append to history file, not overwrite
+shopt -s histverify # verify history commands before running them
+shopt -s cdspell # automatically correct small errors in names with cd
+shopt -s interactive_comments # allow comments in interactive shell
 
-    # Smarter Tab Completion
-    bind "set completion-ignore-case on"
-    bind "set show-all-if-ambiguous on"
+# Smarter Tab Completion
+bind "set completion-ignore-case on"
+bind "set show-all-if-ambiguous on"
 
-    # Menu Tab Completion (supported on bash 4+)
-    if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
-        bind "TAB:menu-complete"
-        bind "set menu-complete-display-prefix on"
-    fi
-
-    # History Search
-    bind '"\e[A": history-search-backward'
-    bind '"\e[B": history-search-forward'
-
-    # Fix some common keybinds.
-    # To see keys, run cat, press enter, then hit key combo to see output.
-    bind '"\e\e[C": forward-word'
-    bind '"\e\e[D": backward-word'
-
-    # No history if space.
-    export HISTCONTROL=ignorespace
-    # Control history line count in memory for session.
-    export HISTSIZE=10000
-    # Control history line count on disk for persistence.
-    export HISTFILESIZE=10000
-
-    # Source custom completion scripts.
-    for c in "$BFG_SHELL_HOME"/completions/bash/*; do
-        source "$c"
-    done
-
-    # Source any local completion scripts, if present.
-    while IFS= read -r -d '' c; do
-        source "$c"
-    done < <(\
-        find "$BFG_SHELL_HOME"/local/completions/bash \
-            -mindepth 1 \
-            -type f \
-            -not -name .gitkeep \
-            -print0 \
-    )
+# Menu Tab Completion (supported on bash 4+)
+if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
+    bind "TAB:menu-complete"
+    bind "set menu-complete-display-prefix on"
 fi
+
+# History Search
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# Fix some common keybinds.
+# To see keys, run cat, press enter, then hit key combo to see output.
+bind '"\e\e[C": forward-word'
+bind '"\e\e[D": backward-word'
+
+# No history if space.
+export HISTCONTROL=ignorespace
+# Control history line count in memory for session.
+export HISTSIZE=10000
+# Control history line count on disk for persistence.
+export HISTFILESIZE=10000
+
+# Source custom completion scripts.
+for c in "$BFG_SHELL_HOME"/completions/bash/*; do
+    source "$c"
+done
+
+# Source any local completion scripts, if present.
+while IFS= read -r -d '' c; do
+    source "$c"
+done < <(\
+    find "$BFG_SHELL_HOME"/local/completions/bash \
+        -mindepth 1 \
+        -type f \
+        -not -name .gitkeep \
+        -print0 \
+)
+f
