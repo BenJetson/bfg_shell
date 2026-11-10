@@ -68,17 +68,16 @@ bfg_init() {
     bfg_check_environment
 
     bfg_smart_source "config"
+    bfg_smart_source "alias"
+    bfg_smart_source "func"
+    bfg_smart_source "developer"
+    bfg_smart_source "escape"
+
+    bfg_source "update"
 
     # If is interactive shell, load additional components.
     if bfg_check_interactive_shell; then
-        bfg_smart_source "alias"
-
-        bfg_smart_source "func"
-        bfg_smart_source "developer"
-        bfg_smart_source "escape"
         bfg_smart_source "prompt"
-
-        bfg_source "update"
 
         # If this shell supports line editing, bind settings and completion.
         if bfg_check_line_editing_support; then
@@ -89,9 +88,9 @@ bfg_init() {
 
     # Handle local overrides last.
     bfg_smart_source "local/config"
+    bfg_smart_source "local/alias"
     if bfg_check_interactive_shell; then
         bfg_smart_source "local/iconfig"
-        bfg_smart_source "local/alias"
     fi
 }
 
