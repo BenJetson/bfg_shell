@@ -11,9 +11,11 @@ therefore will **not be committed to the repository**.
 The following types are available:
 
 - `config` - contains shell configuration options or environment variables, etc
+- `iconfig` - contains shell configuration that should only be loaded for
+  interactive environments
 - `alias` - contains command aliases
 
-Both must end with `.sh` to be loaded.
+These files must end with `.sh` to be loaded.
 
 ## Global Files
 

@@ -90,6 +90,7 @@ bfg_init() {
     # Handle local overrides last.
     bfg_smart_source "local/config"
     if bfg_check_interactive_shell; then
+        bfg_smart_source "local/iconfig"
         bfg_smart_source "local/alias"
     fi
 }
