@@ -49,15 +49,20 @@ bfg_update() {
             "$CURRENT_COMMIT_HASH" "$NEW_COMMIT_HASH"
         echo
 
-        while true; do
-            printf "Would you like to update? [y/n]: "
-            read -r REPLY
-            case $REPLY in
-                [yY]) echo ; break ;;
-                [nN]) echo ; echo "Abort!"; echo; exit 1 ;;
-                *) printf " \033[31m %s \n\033[0m" "invalid input"
-            esac
-        done
+        if [ "$#" -eq 1 ] && [ "$1" == "-y" ]; then
+            echo "Detected -y flag: auto-confirming update."
+            echo
+        else
+            while true; do
+                printf "Would you like to update? [y/n]: "
+                read -r REPLY
+                case $REPLY in
+                    [yY]) echo ; break ;;
+                    [nN]) echo ; echo "Abort!"; echo; exit 1 ;;
+                    *) printf " \033[31m %s \n\033[0m" "invalid input"
+                esac
+            done
+        fi
 
         echo "Fast forwarding changes..."
         echo
