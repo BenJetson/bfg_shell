@@ -36,6 +36,7 @@ FG_COLOR_BRIGHT_WHITE=$(bfg_escape $'\033[97m')
 FG_COLOR_ORANGE=$(bfg_escape $'\033[38;5;202m')
 FG_COLOR_RASPBERRY=$(bfg_escape $'\033[38;5;161m')
 FG_COLOR_DARK_GREY=$(bfg_escape $'\033[38;5;239m')
+FG_COLOR_SLATE_BLUE=$(bfg_escape $'\033[38;5;62m')
 
 # BG_COLOR_BLACK=$(bfg_escape $'\033[40m')
 BG_COLOR_RED=$(bfg_escape $'\033[41m')
@@ -58,6 +59,7 @@ BG_COLOR_BRIGHT_GREY=$(bfg_escape $'\033[48;5;250m')
 BG_COLOR_ORANGE=$(bfg_escape $'\033[48;5;202m')
 BG_COLOR_RASPBERRY=$(bfg_escape $'\033[48;5;161m')
 BG_COLOR_DARK_GREY=$(bfg_escape $'\033[48;5;239m')
+BG_COLOR_SLATE_BLUE=$(bfg_escape $'\033[48;5;62m')
 
 
 # FG_COLOR_RESET=$(bfg_escape $'\033[39m')
@@ -120,6 +122,7 @@ ICON_HOME="$(bfg_get_icon "f015")"
 ICON_FOLDER="$(bfg_get_icon "f07c")"
 ICON_BRANCH="$(bfg_get_icon "f126")"
 ICON_NETWORK="$(bfg_get_icon "f0318")"
+ICON_SHIP_WHEEL="$(bfg_get_icon "f0833")"
 
 ## Head Segment Detection ##
 
@@ -295,6 +298,38 @@ bfg_prompt_segment_docker() {
     PROMPT+="$FG_COLOR_DOCKER"
 }
 
+bfg_prompt_segment_kubeconfig() {
+    # The goal of this segment is to alert me when a REMOTE k8s context is in
+    # use, rather than hitting my local k8s cluster.
+
+    # If kubectl is not available, then skip this segment.
+    if ! which kubectl >/dev/null 2>&1; then
+        return 0
+    fi
+
+    # Retrieve current context from kubectl CLI.
+    local k8s_context
+    if ! k8s_context="$(kubectl config current-context 2>/dev/null)"; then
+        # No context is set (or an error when checking) - skip this segment.
+        return 0
+    fi
+
+    # After determining the context, ignore some cases.
+    case "$k8s_context" in
+        rancher-desktop) return 0 ;; # using Rancher Desktop; not a remote.
+        minikube) return 0 ;; # using minikube; not a remote.
+    esac
+
+    # If we made it this far, we've got a remote k8s context active and need
+    # to show the segment.
+    PROMPT+="$BG_COLOR_SLATE_BLUE"
+    PROMPT+="$ICON_CHEVRON_RIGHT"
+    PROMPT+="$FG_COLOR_WHITE"
+    PROMPT+=" $ICON_SHIP_WHEEL "
+    PROMPT+="$k8s_context "
+    PROMPT+="$FG_COLOR_SLATE_BLUE"
+}
+
 ## Left Prompt Handler ##
 
 bfg_set_prompt() {
@@ -306,6 +341,7 @@ bfg_set_prompt() {
     bfg_prompt_segment_ssh
     bfg_prompt_segment_directory
     bfg_prompt_segment_docker
+    bfg_prompt_segment_kubeconfig
     bfg_prompt_segment_git
 
     # Reset colors after prompt, add final chevron.
